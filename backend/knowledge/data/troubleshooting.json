@@ -1,0 +1,462 @@
+{
+  "categories": [
+    {
+      "id": "camera_offline",
+      "name": "摄像头离线 / Camera Offline",
+      "keywords": ["offline", "not connecting", "disconnected", "unreachable", "离线", "连不上", "断连"],
+      "articles": [
+        {
+          "id": "co_001",
+          "title": "Camera Shows Offline in Reolink App",
+          "symptoms": ["Camera shows offline status in app", "Cannot connect to camera", "Camera not responding", "Gray screen in live view"],
+          "steps": [
+            "Step 1: Check the camera power - Verify the power LED is on. For PoE cameras, check the Ethernet cable connection. For WiFi cameras, ensure the power adapter is plugged in.",
+            "Step 2: Power cycle the camera - Unplug the power cable, wait 30 seconds, then plug it back in. Wait 1-2 minutes for the camera to fully boot.",
+            "Step 3: Restart your router - Unplug the router power, wait 30 seconds, plug it back in. Wait 2-3 minutes for it to fully restart.",
+            "Step 4: Check your network - Ensure your phone/computer is on the same network as the camera. Try switching between WiFi and cellular data.",
+            "Step 5: Check camera firmware - Go to Device Settings > Firmware and update if a new version is available.",
+            "Step 6: Factory reset - If all else fails, press and hold the reset button on the camera for 10 seconds until you hear a voice prompt. Then re-add the camera in the app."
+          ],
+          "products": ["all"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "co_002",
+          "title": "Camera Goes Offline After Router Restart",
+          "symptoms": ["Camera offline after power outage", "Camera not reconnecting after router restart", "Camera offline after internet disruption"],
+          "steps": [
+            "Step 1: Wait 5 minutes - After a router restart, cameras may take up to 5 minutes to automatically reconnect.",
+            "Step 2: Power cycle the camera - If it doesn't reconnect, unplug the camera power for 30 seconds and plug it back in.",
+            "Step 3: Check DHCP settings - Log into your router admin page and verify DHCP is enabled. The camera needs to obtain an IP address.",
+            "Step 4: Assign a static IP - In the Reolink app, go to Device Settings > Network > Network Information, and assign a static IP to prevent IP conflicts after router restarts.",
+            "Step 5: Check maximum DHCP clients - Some routers limit the number of connected devices. Increase the DHCP client limit in router settings."
+          ],
+          "products": ["all"],
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "co_003",
+          "title": "PoE Camera Not Detected by NVR",
+          "symptoms": ["PoE camera not showing on NVR", "NVR channel shows no signal", "Camera not detected via PoE"],
+          "steps": [
+            "Step 1: Check the Ethernet cable - Try a different Cat5e or Cat6 cable. Ensure the cable run is under 100 meters.",
+            "Step 2: Try a different PoE port - Connect the camera to a different PoE port on the NVR.",
+            "Step 3: Test with direct power - Use a 12V DC power adapter to power the camera directly, bypassing PoE, to rule out camera hardware issues.",
+            "Step 4: Check NVR channel limit - Verify you haven't exceeded the NVR's maximum camera capacity (4/8/16 channels depending on model).",
+            "Step 5: Update NVR firmware - Go to NVR Menu > System > Firmware Upgrade and update to the latest version.",
+            "Step 6: Re-add the camera - On the NVR, go to IP Channel settings, delete the camera entry, and let it auto-discover again."
+          ],
+          "products": ["PoE cameras", "NVR"],
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": "night_vision",
+      "name": "夜视问题 / Night Vision Issues",
+      "keywords": ["night vision", "dark", "IR", "infrared", "blurry at night", "夜视", "红外", "晚上看不清"],
+      "articles": [
+        {
+          "id": "nv_001",
+          "title": "Night Vision is Completely Dark",
+          "symptoms": ["Black screen at night", "Cannot see anything in dark", "IR LEDs not turning on", "No night vision image"],
+          "steps": [
+            "Step 1: Check IR light settings - Open Reolink App > Device Settings > Display > Day/Night mode. Set it to 'Auto' or 'Black & White'.",
+            "Step 2: Verify IR LEDs are on - In a dark room, look at the camera front. You should see faint red glow from the IR LEDs. If not, the IR LEDs may be defective.",
+            "Step 3: Check for IR cut filter issue - If you can see the IR LEDs glowing but the image is still dark, the IR cut filter may be stuck. Power cycle the camera.",
+            "Step 4: Clean the lens - Use a soft microfiber cloth to clean the camera lens. Dust or fingerprints can block IR light.",
+            "Step 5: Check for firmware updates - Some firmware versions fix IR-related bugs. Update to the latest firmware.",
+            "Step 6: Contact support - If IR LEDs don't glow at all, this may indicate a hardware defect. Contact Reolink support for RMA."
+          ],
+          "products": ["all cameras"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "nv_002",
+          "title": "Night Vision is Blurry or Foggy",
+          "symptoms": ["Blurry night vision", "Foggy image at night", "Overexposed night vision", "Glare in night mode"],
+          "steps": [
+            "Step 1: Clean the lens thoroughly - Use a microfiber cloth. Moisture, dust, or spider webs on the lens cause fogginess and glare.",
+            "Step 2: Check for reflective surfaces - If the camera faces a wall, window, or reflective surface within 1 meter, IR light bounces back causing overexposure. Reposition the camera.",
+            "Step 3: Remove nearby light sources - Bright lights near the camera can cause the day/night sensor to malfunction. Move lights away or adjust their angle.",
+            "Step 4: Adjust IR LED brightness - In Device Settings > Display > IR Lights, try reducing IR brightness if the image is overexposed at close range.",
+            "Step 5: Check for condensation - If installed outdoors, moisture inside the lens housing causes fog. Bring the camera indoors to dry, or use silica gel packets near the mounting location.",
+            "Step 6: Try color night vision - If your camera supports it, enable 'Color Night Vision' mode under Display settings for better clarity with spotlights."
+          ],
+          "products": ["all cameras"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "nv_003",
+          "title": "Camera Stuck in Night Mode During Day",
+          "symptoms": ["Black and white image during daytime", "Camera won't switch to day mode", "IR filter stuck"],
+          "steps": [
+            "Step 1: Check Day/Night mode setting - Go to Device Settings > Display > Day/Night and ensure it's set to 'Auto' (not forced to 'Black & White').",
+            "Step 2: Check light sensor - Ensure nothing is blocking the camera's light sensor (usually located near the lens). Clean any debris.",
+            "Step 3: Reboot the camera - Power cycle the camera. This can unstick a mechanically stuck IR cut filter.",
+            "Step 4: Check exposure settings - Go to Device Settings > Display > Image Adjustment. Reset all values to default.",
+            "Step 5: Firmware update - Update to the latest firmware which may fix IR cut filter control issues."
+          ],
+          "products": ["all cameras"],
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": "motion_detection",
+      "name": "移动侦测问题 / Motion Detection Issues",
+      "keywords": ["motion detection", "alert", "notification", "PIR", "false alarm", "missed motion", "移动侦测", "报警", "通知", "误报"],
+      "articles": [
+        {
+          "id": "md_001",
+          "title": "Motion Detection Not Working",
+          "symptoms": ["No motion alerts", "Motion detection not triggering", "No push notifications", "Camera not recording motion"],
+          "steps": [
+            "Step 1: Enable motion detection - Go to Reolink App > Device Settings > Alarm Settings > Motion Detection and toggle it ON.",
+            "Step 2: Check notification settings - Ensure Push Notifications are enabled in the app. Also check your phone's notification settings for the Reolink app.",
+            "Step 3: Adjust sensitivity - Increase the motion detection sensitivity slider. Default is 50, try setting it to 70-80.",
+            "Step 4: Check detection zone - Go to Alarm Settings > Motion Detection Zone and ensure the area you want monitored is selected (not blocked out).",
+            "Step 5: Check recording schedule - Verify the recording schedule covers the time period when you expect motion. Go to Device Settings > Recording Schedule.",
+            "Step 6: Verify storage - Ensure there is available storage (SD card or NVR HDD) for motion recordings. Check Device Settings > Storage."
+          ],
+          "products": ["all"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "md_002",
+          "title": "Too Many False Motion Alerts",
+          "symptoms": ["Constant false alarms", "Motion alerts from trees/shadows", "Too many notifications", "Alerts triggered by rain/insects"],
+          "steps": [
+            "Step 1: Reduce sensitivity - Lower the motion detection sensitivity to 30-40. This reduces triggers from small movements like leaves or insects.",
+            "Step 2: Set detection zones - Go to Alarm Settings > Motion Detection Zone and exclude areas with frequent movement (trees, roads, flags).",
+            "Step 3: Enable smart detection - If your camera supports Person/Vehicle/Animal detection, enable only the categories you care about. This filters out non-relevant motion.",
+            "Step 4: Set minimum object size - Adjust the object size filter to ignore very small movements (insects, distant cars).",
+            "Step 5: Reposition the camera - Avoid pointing the camera directly at busy roads, tree lines, or areas with moving shadows. A slight angle change can drastically reduce false alerts.",
+            "Step 6: Adjust alarm schedule - Set motion detection to only be active during specific hours when you need monitoring."
+          ],
+          "products": ["all"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "md_003",
+          "title": "PIR Sensor Not Working on Battery Camera",
+          "symptoms": ["PIR not detecting motion", "Battery camera not waking up", "No PIR triggers", "Argus camera missing events"],
+          "steps": [
+            "Step 1: Check PIR switch - Some battery cameras have a physical PIR enable/disable switch. Ensure it's in the ON position.",
+            "Step 2: Maximize PIR sensitivity - In the app, go to Device Settings > PIR Settings and set sensitivity to 'High'.",
+            "Step 3: Check PIR detection range - PIR sensors work best for lateral movement (across the sensor), not movement directly toward/away from the camera. Adjust mounting angle.",
+            "Step 4: Avoid heat sources - PIR sensors detect infrared (heat) changes. Avoid mounting near AC vents, heaters, or direct sunlight which can reduce sensitivity.",
+            "Step 5: Check battery level - Low battery can cause the PIR sensor to malfunction. Charge the battery fully and test again.",
+            "Step 6: Reboot the camera - Remove and reinsert the battery. This resets the PIR sensor hardware.",
+            "Step 7: Factory reset - Press and hold the reset button for 10 seconds, then set up the camera again."
+          ],
+          "products": ["Argus 3 Pro", "Argus PT", "Argus Eco", "battery cameras"],
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": "app_connectivity",
+      "name": "App 连接问题 / App Connectivity",
+      "keywords": ["app", "connection failed", "remote access", "UID", "cannot view", "连接失败", "远程访问", "无法查看"],
+      "articles": [
+        {
+          "id": "ac_001",
+          "title": "Cannot Connect to Camera in Reolink App",
+          "symptoms": ["Connection failed in app", "Cannot load live view", "App shows connection error", "Spinning wheel when viewing camera"],
+          "steps": [
+            "Step 1: Check network connection - Ensure your phone is connected to WiFi or has cellular data. Try switching between them.",
+            "Step 2: Check local network permission - On iOS: Settings > Reolink > enable 'Local Network'. On Android: ensure the app has network access.",
+            "Step 3: Verify camera is online - Check if the camera's LED indicates it's connected. Green/blue light usually means online.",
+            "Step 4: Restart the app - Force close the Reolink app and reopen it.",
+            "Step 5: Clear app cache - On Android: Settings > Apps > Reolink > Storage > Clear Cache. On iOS: delete and reinstall the app.",
+            "Step 6: Disable VPN/firewall - Temporarily disable any VPN or firewall on your phone. Some VPNs block local network discovery.",
+            "Step 7: Re-add the camera - Delete the camera from the app and add it again using the QR code or UID."
+          ],
+          "products": ["all"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "ac_002",
+          "title": "Cannot Access Camera Remotely",
+          "symptoms": ["Remote access not working", "Can view locally but not remotely", "UID connection failed", "Camera not accessible outside home"],
+          "steps": [
+            "Step 1: Verify UID is enabled - In the Reolink app (while connected locally), go to Device Settings > Network > Advanced > UID and ensure it's enabled.",
+            "Step 2: Check internet connection - Ensure your home network has internet access. The camera needs internet for remote access via UID.",
+            "Step 3: Router firewall - Some routers block P2P connections used by UID. Try temporarily disabling the router firewall to test.",
+            "Step 4: DNS settings - Change your router's DNS to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare) to rule out DNS resolution issues.",
+            "Step 5: Port forwarding (alternative) - If UID doesn't work, set up port forwarding on your router: forward ports 80 (HTTP), 554 (RTSP), and 9000 (media) to the camera's local IP.",
+            "Step 6: Check ISP - Some ISPs use CGNAT which blocks P2P. Contact your ISP to ask for a public IP address."
+          ],
+          "products": ["all"],
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": "nvr_recording",
+      "name": "NVR 录像问题 / NVR Recording Issues",
+      "keywords": ["NVR", "recording", "HDD", "hard drive", "playback", "not recording", "录像", "硬盘", "回放"],
+      "articles": [
+        {
+          "id": "nr_001",
+          "title": "NVR Not Recording",
+          "symptoms": ["NVR shows no recordings", "Playback is empty", "Recording icon not showing", "HDD not recording"],
+          "steps": [
+            "Step 1: Check HDD status - Go to NVR Menu > Storage > HDD Management. The HDD should show as 'Normal'. If it shows 'Uninitialized', click 'Format' to initialize it.",
+            "Step 2: Verify recording schedule - Go to NVR Menu > Recording > Schedule. Ensure continuous or motion recording is enabled for the channels you want.",
+            "Step 3: Check HDD capacity - If the HDD is full and overwrite is disabled, recording stops. Enable 'Overwrite' in Storage settings to auto-delete oldest footage.",
+            "Step 4: Verify channel connection - Ensure cameras are connected and showing live view on the NVR. A disconnected camera won't record.",
+            "Step 5: Test with a different HDD - If the HDD shows errors, try a different surveillance-grade HDD (WD Purple or Seagate SkyHawk recommended).",
+            "Step 6: Update NVR firmware - Go to System > Maintenance > Upgrade and install the latest firmware."
+          ],
+          "products": ["RLN8-410", "RLN16-410", "RLN36", "NVR"],
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "nr_002",
+          "title": "NVR HDD Not Detected",
+          "symptoms": ["HDD not found", "No storage device", "NVR says no HDD", "Hard drive not recognized"],
+          "steps": [
+            "Step 1: Power off and reseat HDD - Turn off the NVR, open the case, disconnect and reconnect the HDD SATA and power cables firmly.",
+            "Step 2: Check HDD compatibility - Use a 3.5-inch SATA surveillance HDD. Desktop HDDs may not be compatible. Maximum capacity depends on NVR model (up to 10TB for most models).",
+            "Step 3: Test HDD on a computer - Connect the HDD to a PC to verify it's functioning. If the PC doesn't detect it either, the HDD is likely faulty.",
+            "Step 4: Try a different SATA port - If your NVR has multiple SATA ports, try a different one.",
+            "Step 5: Check power supply - Ensure the NVR's power adapter provides sufficient power. An underpowered NVR may not spin up the HDD.",
+            "Step 6: Format the HDD - If detected but showing errors, format it through NVR Menu > Storage > HDD Management > Format."
+          ],
+          "products": ["NVR"],
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": "firmware_update",
+      "name": "固件升级问题 / Firmware Update Issues",
+      "keywords": ["firmware", "update", "upgrade", "failed", "stuck", "version", "固件", "升级", "更新"],
+      "articles": [
+        {
+          "id": "fu_001",
+          "title": "Firmware Update Failed",
+          "symptoms": ["Firmware upgrade failed", "Update stuck at percentage", "Failed to recognize firmware file", "Camera bricked after update"],
+          "steps": [
+            "Step 1: Use LAN connection - For more reliable updates, connect to the camera via LAN (not WiFi or remote). Use the Reolink Client desktop software.",
+            "Step 2: Verify firmware file - Download the correct firmware from Reolink's official website. Check that the model name and hardware version match exactly (found on camera label).",
+            "Step 3: Check file format - The firmware file should be a .zip. Do NOT extract it before uploading. Some older models require .pak files.",
+            "Step 4: Incremental update - If your firmware is very old, you may need to update to an intermediate version first, then update to the latest.",
+            "Step 5: For battery cameras - If update fails, remove the battery and let the camera sit for 8 hours. Then reinsert battery and try again.",
+            "Step 6: Recovery mode - If the camera appears bricked, find its IP in your router's DHCP table and access it via web browser (http://camera-ip). Try uploading firmware through the web interface."
+          ],
+          "products": ["all"],
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "poe_connection",
+      "name": "PoE 连接问题 / PoE Connection Issues",
+      "keywords": ["PoE", "ethernet", "cable", "power over ethernet", "switch", "injector", "网线", "供电"],
+      "articles": [
+        {
+          "id": "pc_001",
+          "title": "PoE Camera Not Powering On",
+          "symptoms": ["Camera not turning on via PoE", "No LED lights on PoE camera", "PoE camera dead", "Camera not getting power from NVR"],
+          "steps": [
+            "Step 1: Check the Ethernet cable - Use a Cat5e or Cat6 cable. Inspect for damage, kinks, or loose connectors. Try a different cable.",
+            "Step 2: Test the PoE port - Connect the camera to a different PoE port on the NVR or switch. Some ports may be faulty.",
+            "Step 3: Check PoE power budget - Each PoE port provides up to 15W (802.3af). If using a PoE switch, verify the total power budget isn't exceeded.",
+            "Step 4: Test with DC power - Use a 12V DC adapter to power the camera directly. If it turns on, the issue is with the PoE source, not the camera.",
+            "Step 5: Check cable length - PoE works up to 100 meters (330 feet). Beyond this, use a PoE extender.",
+            "Step 6: Verify PoE standard - Reolink cameras use 802.3af (PoE) standard. Ensure your switch/injector supports this (not just passive PoE)."
+          ],
+          "products": ["RLC-810A", "RLC-820A", "RLC-1210A", "RLC-823A", "PoE cameras"],
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "pc_002",
+          "title": "PoE Camera Intermittent Disconnections",
+          "symptoms": ["PoE camera keeps disconnecting", "Intermittent video loss", "Camera drops connection periodically", "Unstable PoE connection"],
+          "steps": [
+            "Step 1: Replace the Ethernet cable - A partially damaged cable can cause intermittent issues. Use a new Cat6 cable.",
+            "Step 2: Check cable termination - If you crimped the cable yourself, re-terminate both ends. Use T568B wiring standard on both ends.",
+            "Step 3: Avoid electrical interference - Don't run Ethernet cables parallel to power lines or near fluorescent lights. Use shielded cable (STP) in electrically noisy environments.",
+            "Step 4: Check PoE switch/NVR load - If many cameras are connected, the PoE power budget may be insufficient. Calculate total power draw vs available budget.",
+            "Step 5: Update camera firmware - Some firmware versions fix network stability issues. Update to the latest version.",
+            "Step 6: Assign static IP - Go to Device Settings > Network and assign a static IP to prevent DHCP conflicts causing disconnections."
+          ],
+          "products": ["PoE cameras", "NVR"],
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": "wifi_signal",
+      "name": "WiFi 信号问题 / WiFi Signal Issues",
+      "keywords": ["WiFi", "signal", "weak", "disconnecting", "range", "2.4GHz", "5GHz", "信号", "断连", "距离"],
+      "articles": [
+        {
+          "id": "ws_001",
+          "title": "Weak WiFi Signal on Camera",
+          "symptoms": ["Low WiFi signal bars", "Camera keeps losing WiFi", "Slow video loading", "Intermittent connection"],
+          "steps": [
+            "Step 1: Check signal strength - In the Reolink app, go to Device Settings > Network > WiFi. Signal should be at least 2 bars (3+ recommended).",
+            "Step 2: Reduce distance - Move the camera closer to the router, or move the router closer to the camera.",
+            "Step 3: Remove obstacles - Walls (especially concrete/brick), metal objects, and appliances between the camera and router weaken the signal.",
+            "Step 4: Use 2.4GHz band - If your camera supports dual-band, connect to 2.4GHz instead of 5GHz. 2.4GHz has better range and wall penetration.",
+            "Step 5: Add a WiFi extender - Place a WiFi extender between the router and camera to boost coverage.",
+            "Step 6: Change WiFi channel - Log into your router and change the WiFi channel to reduce interference from neighbors. Use a WiFi analyzer app to find the least congested channel.",
+            "Step 7: Check antenna - For cameras with external antennas, ensure the antenna is properly tightened and oriented vertically."
+          ],
+          "products": ["WiFi cameras", "Argus series", "E1 series"],
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "id": "video_quality",
+      "name": "画质问题 / Video Quality Issues",
+      "keywords": ["blurry", "pixelated", "quality", "resolution", "lag", "freeze", "模糊", "卡顿", "画质", "像素"],
+      "articles": [
+        {
+          "id": "vq_001",
+          "title": "Video is Blurry or Low Quality",
+          "symptoms": ["Blurry video", "Low resolution image", "Pixelated stream", "Fuzzy picture"],
+          "steps": [
+            "Step 1: Check stream quality - In the Reolink app live view, tap the quality toggle to switch to 'Clear' (high quality) instead of 'Fluent' (low quality).",
+            "Step 2: Adjust resolution settings - Go to Device Settings > Display > Encode and set resolution to the maximum supported (e.g., 2560x1920 for 5MP cameras).",
+            "Step 3: Increase bitrate - In Encode settings, increase the bitrate. Higher bitrate means better quality but requires more bandwidth.",
+            "Step 4: Clean the lens - Wipe the camera lens with a soft microfiber cloth. Fingerprints and dust cause blurriness.",
+            "Step 5: Check focus - Some cameras have manual focus adjustment. If the image is consistently blurry, adjust the focus ring.",
+            "Step 6: Network bandwidth - If streaming over WiFi, weak signal causes automatic quality reduction. Improve WiFi signal or use PoE for the camera."
+          ],
+          "products": ["all"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "vq_002",
+          "title": "Video Freezing or Lagging",
+          "symptoms": ["Video stuttering", "Live view freezing", "Choppy playback", "Video buffering constantly"],
+          "steps": [
+            "Step 1: Switch to Fluent stream - Tap the quality toggle to 'Fluent'. This uses less bandwidth and reduces buffering.",
+            "Step 2: Check network speed - Run a speed test on your phone/computer. You need at least 4Mbps upload at the camera location for smooth HD streaming.",
+            "Step 3: Reduce connected devices - Too many devices on the same network can cause congestion. Disconnect unnecessary devices.",
+            "Step 4: Use wired connection - If viewing on a PC, connect it to the router via Ethernet instead of WiFi.",
+            "Step 5: Close other streams - Viewing multiple cameras simultaneously consumes bandwidth. View one camera at a time to test.",
+            "Step 6: Lower frame rate - Go to Device Settings > Display > Encode and reduce frame rate from 15fps to 10fps to reduce bandwidth requirements."
+          ],
+          "products": ["all"],
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "id": "storage_sd_card",
+      "name": "存储/SD 卡问题 / Storage & SD Card Issues",
+      "keywords": ["SD card", "storage", "micro SD", "format", "full", "not detected", "存储", "SD卡", "格式化"],
+      "articles": [
+        {
+          "id": "ss_001",
+          "title": "SD Card Not Detected",
+          "symptoms": ["No SD card found", "SD card not recognized", "Storage shows empty", "Cannot format SD card"],
+          "steps": [
+            "Step 1: Reinsert the SD card - Power off the camera, remove the SD card, wait 10 seconds, reinsert it firmly, and power on.",
+            "Step 2: Check SD card compatibility - Use a Class 10 or UHS-1 microSD card from a reputable brand (SanDisk, Samsung, Kingston). Maximum capacity varies by camera model (typically 128GB or 256GB).",
+            "Step 3: Format in camera - The SD card must be formatted by the camera. Go to Device Settings > Storage > Format SD Card. Do NOT format on a computer.",
+            "Step 4: Check for counterfeit cards - Fake SD cards are common. Test the card on a computer using H2testw (Windows) or F3 (Mac/Linux) to verify actual capacity.",
+            "Step 5: Try a different SD card - If the camera still doesn't detect it, test with a known-good SD card to rule out a card reader hardware issue.",
+            "Step 6: Check firmware - Some firmware versions have improved SD card compatibility. Update to the latest firmware."
+          ],
+          "products": ["all cameras with SD slot"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "ss_002",
+          "title": "SD Card Full - Recording Stopped",
+          "symptoms": ["SD card full", "Recording stopped", "No new recordings", "Old footage not being deleted"],
+          "steps": [
+            "Step 1: Enable overwrite - Go to Device Settings > Storage and enable 'Loop Recording' or 'Overwrite'. This automatically deletes the oldest footage when the card is full.",
+            "Step 2: Check recording mode - If set to 'Continuous' recording, the card fills up faster. Switch to 'Motion Only' recording to save space.",
+            "Step 3: Reduce video quality - Lower the resolution or bitrate in Encode settings. This reduces file size and extends recording duration.",
+            "Step 4: Upgrade SD card - Use a larger capacity card (128GB or 256GB) for more storage.",
+            "Step 5: Manually clear recordings - In the app, go to Playback, select old recordings, and delete them to free up space."
+          ],
+          "products": ["all cameras with SD slot"],
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "id": "two_way_audio",
+      "name": "双向语音问题 / Two-Way Audio Issues",
+      "keywords": ["audio", "microphone", "speaker", "two-way", "talk", "sound", "echo", "语音", "麦克风", "扬声器", "回声"],
+      "articles": [
+        {
+          "id": "ta_001",
+          "title": "Two-Way Audio Not Working",
+          "symptoms": ["No audio from camera", "Cannot hear through camera", "Microphone not working", "Talk button not responding"],
+          "steps": [
+            "Step 1: Enable audio recording - Go to Device Settings > Audio and Light > toggle ON 'Record Audio'.",
+            "Step 2: Check app permissions - Ensure the Reolink app has microphone permission on your phone (Settings > Reolink > Microphone).",
+            "Step 3: Press and hold Talk button - In the live view, press and HOLD the microphone/talk button. Release to listen. It works like a walkie-talkie.",
+            "Step 4: Check volume - Increase the volume slider in the Reolink app live view. Also check your phone's media volume.",
+            "Step 5: Test on a different device - Try using the Reolink Client on a PC to rule out a phone-specific issue.",
+            "Step 6: Check camera model - Verify your camera model supports two-way audio. Some basic models only have a microphone (one-way audio)."
+          ],
+          "products": ["cameras with speaker"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "ta_002",
+          "title": "Audio Echo During Two-Way Talk",
+          "symptoms": ["Echo in audio", "Audio feedback loop", "Sound repeating", "Howling noise"],
+          "steps": [
+            "Step 1: Use headphones - On your phone, use earphones/headphones when using two-way audio. This eliminates the feedback loop between speaker and microphone.",
+            "Step 2: Lower volume - Reduce the volume on both your phone and the camera speaker. High volume increases echo.",
+            "Step 3: Increase distance - Move away from the camera's speaker. If you're near the camera while talking, the microphone picks up the speaker output.",
+            "Step 4: Check for reflective surfaces - Hard walls and ceilings near the camera can cause audio reflections. Soft materials absorb echo.",
+            "Step 5: Update firmware - Some firmware updates include audio processing improvements that reduce echo."
+          ],
+          "products": ["cameras with speaker"],
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "id": "playback_issues",
+      "name": "回放问题 / Playback Issues",
+      "keywords": ["playback", "recording", "video", "corrupted", "green", "frozen", "回放", "录像", "播放", "损坏"],
+      "articles": [
+        {
+          "id": "pi_001",
+          "title": "Cannot Play Back Recordings",
+          "symptoms": ["Playback not loading", "No recordings found", "Playback page empty", "Cannot load video information"],
+          "steps": [
+            "Step 1: Check date and time - In the playback page, make sure you've selected the correct date. Recordings may be on a different day than expected.",
+            "Step 2: Verify recording schedule - Go to Device Settings > Recording Schedule to confirm recording was active during the time period you're looking for.",
+            "Step 3: Check storage - Verify the SD card or NVR HDD is properly detected and has recordings. Go to Device Settings > Storage.",
+            "Step 4: Switch stream type - In playback, switch between 'Clear' and 'Fluent' stream. Sometimes one stream has recordings while the other doesn't.",
+            "Step 5: Use Reolink Client - Try viewing playback through the Reolink Client desktop software instead of the mobile app. It often provides more reliable playback.",
+            "Step 6: Check camera time zone - Go to Device Settings > System > Time and verify the time zone is correct. Wrong time zones cause recordings to appear at unexpected times."
+          ],
+          "products": ["all"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "pi_002",
+          "title": "Recordings Show Green/Broken Images",
+          "symptoms": ["Green frames in playback", "Corrupted video", "Broken images", "Pixelated recordings"],
+          "steps": [
+            "Step 1: Check SD card health - A failing SD card produces corrupted recordings. Try formatting the card in the camera (this will delete all recordings).",
+            "Step 2: Use a surveillance-grade SD card - Regular SD cards may not handle continuous write operations. Use cards designed for surveillance (e.g., SanDisk High Endurance).",
+            "Step 3: Check NVR HDD health - If using an NVR, go to Storage > HDD Management and check for SMART errors. Replace the HDD if errors are detected.",
+            "Step 4: Reduce video bitrate - Very high bitrates can cause write errors on slower storage media. Lower the bitrate in Encode settings.",
+            "Step 5: Check for overheating - If the camera or NVR is in a hot environment, it may cause recording errors. Ensure proper ventilation.",
+            "Step 6: Update firmware - Firmware updates often fix video encoding bugs that cause corruption."
+          ],
+          "products": ["all"],
+          "difficulty": "intermediate"
+        }
+      ]
+    }
+  ]
+}

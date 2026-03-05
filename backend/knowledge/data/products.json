@@ -1,0 +1,139 @@
+{
+  "products": [
+    {
+      "model": "RLC-810A",
+      "name": "Reolink RLC-810A",
+      "type": "PoE Camera",
+      "connectivity": "PoE",
+      "resolution": "4K (3840x2160)",
+      "features": ["Person/Vehicle Detection", "Night Vision 30m", "Time Lapse", "IP66 Weatherproof", "microSD up to 256GB"],
+      "common_issues": ["PoE connection", "Night vision", "Motion detection sensitivity"]
+    },
+    {
+      "model": "RLC-820A",
+      "name": "Reolink RLC-820A",
+      "type": "PoE Camera",
+      "connectivity": "PoE",
+      "resolution": "4K (3840x2160)",
+      "features": ["Person/Vehicle Detection", "Night Vision 30m", "Dome Design", "IP66 Weatherproof", "microSD up to 256GB"],
+      "common_issues": ["PoE connection", "Dome reflection at night", "IR overexposure"]
+    },
+    {
+      "model": "RLC-1210A",
+      "name": "Reolink RLC-1210A",
+      "type": "PoE Camera",
+      "connectivity": "PoE",
+      "resolution": "12MP (4512x2512)",
+      "features": ["Person/Vehicle Detection", "Night Vision 30m", "Ultra HD", "IP66 Weatherproof", "microSD up to 256GB"],
+      "common_issues": ["High bandwidth usage", "PoE connection", "Storage fills quickly"]
+    },
+    {
+      "model": "RLC-823A",
+      "name": "Reolink RLC-823A",
+      "type": "PoE PTZ Camera",
+      "connectivity": "PoE",
+      "resolution": "4K (3840x2160)",
+      "features": ["5X Optical Zoom", "Pan/Tilt", "Person/Vehicle Detection", "Spotlights", "Color Night Vision", "Two-Way Audio"],
+      "common_issues": ["PTZ motor issues", "Zoom focus", "Spotlight triggering"]
+    },
+    {
+      "model": "RLC-510WA",
+      "name": "Reolink RLC-510WA",
+      "type": "WiFi Camera",
+      "connectivity": "WiFi (2.4GHz/5GHz)",
+      "resolution": "5MP (2560x1920)",
+      "features": ["Person/Vehicle Detection", "Night Vision 30m", "Dual-Band WiFi", "IP66 Weatherproof", "microSD up to 256GB"],
+      "common_issues": ["WiFi signal", "Connection drops", "Bandwidth for 5MP"]
+    },
+    {
+      "model": "E1 Zoom",
+      "name": "Reolink E1 Zoom",
+      "type": "WiFi PTZ Camera",
+      "connectivity": "WiFi (2.4GHz/5GHz)",
+      "resolution": "5MP (2560x1920)",
+      "features": ["3X Optical Zoom", "Pan/Tilt", "Person/Pet Detection", "Two-Way Audio", "Indoor Use"],
+      "common_issues": ["WiFi connectivity", "Pan/tilt noise", "Pet detection accuracy"]
+    },
+    {
+      "model": "Argus 3 Pro",
+      "name": "Reolink Argus 3 Pro",
+      "type": "Battery Camera",
+      "connectivity": "WiFi (2.4GHz)",
+      "resolution": "4MP (2560x1440)",
+      "features": ["Solar Panel Compatible", "Person/Vehicle Detection", "Color Night Vision", "Two-Way Audio", "IP65 Weatherproof", "Spotlight"],
+      "common_issues": ["Battery drain", "PIR sensitivity", "WiFi range", "Solar panel charging"]
+    },
+    {
+      "model": "Argus PT",
+      "name": "Reolink Argus PT",
+      "type": "Battery PTZ Camera",
+      "connectivity": "WiFi (2.4GHz)",
+      "resolution": "4MP (2560x1440)",
+      "features": ["355° Pan / 140° Tilt", "Solar Panel Compatible", "Person/Vehicle Detection", "Two-Way Audio", "Spotlight"],
+      "common_issues": ["Battery drain from PTZ", "PIR detection", "WiFi signal", "Pan/tilt calibration"]
+    },
+    {
+      "model": "Reolink Video Doorbell",
+      "name": "Reolink Video Doorbell WiFi",
+      "type": "Doorbell Camera",
+      "connectivity": "WiFi (2.4GHz/5GHz)",
+      "resolution": "5MP (2560x1920)",
+      "features": ["Person Detection", "Two-Way Audio", "Chime Included", "Wide Angle 180°", "Pre-existing Doorbell Wiring"],
+      "common_issues": ["Doorbell wiring compatibility", "Chime connection", "Wide-angle distortion", "WiFi signal at door"]
+    },
+    {
+      "model": "Reolink Doorbell PoE",
+      "name": "Reolink Video Doorbell PoE",
+      "type": "Doorbell Camera",
+      "connectivity": "PoE",
+      "resolution": "5MP (2560x1920)",
+      "features": ["Person Detection", "Two-Way Audio", "PoE Powered", "Wide Angle 180°", "Package Detection"],
+      "common_issues": ["PoE wiring at door", "Viewing angle adjustment", "Night vision at doorstep"]
+    },
+    {
+      "model": "RLN8-410",
+      "name": "Reolink RLN8-410",
+      "type": "NVR",
+      "connectivity": "PoE (8-channel)",
+      "resolution": "Supports up to 12MP",
+      "features": ["8 PoE Ports", "2TB HDD Included", "24/7 Recording", "Remote Access", "Motion Playback Search"],
+      "common_issues": ["HDD not detected", "Recording gaps", "Remote access setup", "Firmware update"]
+    },
+    {
+      "model": "RLN16-410",
+      "name": "Reolink RLN16-410",
+      "type": "NVR",
+      "connectivity": "PoE (16-channel)",
+      "resolution": "Supports up to 12MP",
+      "features": ["16 PoE Ports", "3TB HDD Included", "24/7 Recording", "Remote Access", "Smart Detection Playback"],
+      "common_issues": ["HDD capacity management", "Power budget for 16 cameras", "Network bandwidth", "Firmware update"]
+    },
+    {
+      "model": "Reolink Home Hub",
+      "name": "Reolink Home Hub",
+      "type": "Hub",
+      "connectivity": "WiFi + Ethernet",
+      "resolution": "Supports up to 12MP cameras",
+      "features": ["Local Storage", "Centralized Management", "Smart Detection", "No Monthly Fee", "microSD up to 128GB"],
+      "common_issues": ["WiFi camera pairing", "Storage management", "Hub offline", "Camera limit"]
+    },
+    {
+      "model": "Reolink Duo 3 PoE",
+      "name": "Reolink Duo 3 PoE",
+      "type": "Dual-Lens Camera",
+      "connectivity": "PoE",
+      "resolution": "16MP (Dual 8MP)",
+      "features": ["180° Ultra-Wide View", "Person/Vehicle/Pet Detection", "Color Night Vision", "Two-Way Audio", "IP66 Weatherproof"],
+      "common_issues": ["Dual lens stitching", "High bandwidth usage", "Storage requirements", "PoE power requirements"]
+    },
+    {
+      "model": "TrackMix PoE",
+      "name": "Reolink TrackMix PoE",
+      "type": "Dual-Lens PTZ Camera",
+      "connectivity": "PoE",
+      "resolution": "4K + 4K (Dual Lens)",
+      "features": ["Auto Tracking", "6X Hybrid Zoom", "Dual View", "Person/Vehicle/Pet Detection", "Color Night Vision", "Two-Way Audio"],
+      "common_issues": ["Auto-tracking calibration", "Dual view configuration", "Zoom focus", "PoE power consumption"]
+    }
+  ]
+}

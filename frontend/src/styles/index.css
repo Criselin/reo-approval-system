@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-reolink-blue: #0066CC;
+  --color-reolink-dark: #003366;
+  --color-reolink-light: #E6F0FF;
+}
+
+/* Scrollbar styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Typing animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typing-cursor::after {
+  content: '▊';
+  animation: blink 0.8s infinite;
+  color: var(--color-reolink-blue);
+}
+
+/* Pulse animation for thinking indicator */
+@keyframes pulse-dot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+.thinking-dot:nth-child(1) { animation: pulse-dot 1.4s infinite 0s; }
+.thinking-dot:nth-child(2) { animation: pulse-dot 1.4s infinite 0.2s; }
+.thinking-dot:nth-child(3) { animation: pulse-dot 1.4s infinite 0.4s; }
+
+/* Tool call card animation */
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.tool-card-enter {
+  animation: slide-in 0.3s ease-out;
+}
+
+/* Message fade in */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.message-enter {
+  animation: fade-in 0.2s ease-out;
+}

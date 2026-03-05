@@ -1,0 +1,122 @@
+[
+  {
+    "id": "scenario_001",
+    "name": "Camera offline - basic troubleshooting",
+    "user_persona": "A non-technical homeowner, moderately frustrated. Camera stopped working yesterday. Not familiar with network settings.",
+    "issue_category": "camera_offline",
+    "product": "RLC-810A",
+    "expected_resolution": "Power cycle camera and router",
+    "max_turns": 8,
+    "opening_message": "Help! My Reolink camera stopped showing up in the app since yesterday. I can't see any video feed. What's going on?"
+  },
+  {
+    "id": "scenario_002",
+    "name": "Night vision blurry - outdoor camera",
+    "user_persona": "A tech-savvy user who has tried basic troubleshooting. Provides detailed descriptions. Patient.",
+    "issue_category": "night_vision",
+    "product": "RLC-820A",
+    "expected_resolution": "Clean lens and adjust IR settings",
+    "max_turns": 6,
+    "opening_message": "I've noticed my RLC-820A dome camera has very blurry night vision. During the day it's crystal clear but at night everything looks foggy and washed out. I've already tried restarting it."
+  },
+  {
+    "id": "scenario_003",
+    "name": "Motion detection false alarms",
+    "user_persona": "An impatient user getting too many notifications. Wants a quick fix. Short messages.",
+    "issue_category": "motion_detection",
+    "product": "Argus 3 Pro",
+    "expected_resolution": "Adjust sensitivity and enable smart detection",
+    "max_turns": 6,
+    "opening_message": "I keep getting motion alerts every 5 minutes from my Argus 3 Pro. Most of them are just trees moving. This is really annoying!"
+  },
+  {
+    "id": "scenario_004",
+    "name": "NVR not recording - HDD issue",
+    "user_persona": "A small business owner who relies on security footage. Very concerned about losing recordings. Detailed communicator.",
+    "issue_category": "nvr_recording",
+    "product": "RLN8-410",
+    "expected_resolution": "Initialize HDD and check recording schedule",
+    "max_turns": 8,
+    "opening_message": "I have a Reolink RLN8-410 NVR for my store. I just realized there are no recordings from the past 3 days! I need this footage for security. Can you help me figure out what happened?"
+  },
+  {
+    "id": "scenario_005",
+    "name": "WiFi camera keeps disconnecting",
+    "user_persona": "A homeowner with limited technical knowledge. Camera is far from router. Cooperative but confused by technical terms.",
+    "issue_category": "wifi_signal",
+    "product": "RLC-510WA",
+    "expected_resolution": "Improve WiFi signal or use WiFi extender",
+    "max_turns": 8,
+    "opening_message": "My wireless camera keeps going offline every few hours. When I check the app it says 'disconnected'. I have to go unplug it and plug it back in to make it work again."
+  },
+  {
+    "id": "scenario_006",
+    "name": "SD card not detected",
+    "user_persona": "A first-time Reolink user. Just set up the camera. Doesn't understand why recordings aren't saving.",
+    "issue_category": "storage_sd_card",
+    "product": "E1 Zoom",
+    "expected_resolution": "Format SD card in camera",
+    "max_turns": 6,
+    "opening_message": "I just bought a Reolink E1 Zoom and put in a 64GB micro SD card but the app says 'No SD card'. I know the card is good because I use it in my phone. What's wrong?"
+  },
+  {
+    "id": "scenario_007",
+    "name": "Remote access not working",
+    "user_persona": "A user who can view camera at home but not when away. Moderately technical. Traveling for work.",
+    "issue_category": "app_connectivity",
+    "product": "RLC-823A",
+    "expected_resolution": "Enable UID and check router settings",
+    "max_turns": 6,
+    "opening_message": "When I'm at home on WiFi I can see my RLC-823A camera fine, but when I'm at work or using mobile data I get 'Connection Failed'. I need to be able to check my cameras remotely."
+  },
+  {
+    "id": "scenario_008",
+    "name": "Firmware update failed",
+    "user_persona": "A worried user whose camera is now unresponsive after a failed firmware update. Very anxious.",
+    "issue_category": "firmware_update",
+    "product": "RLC-810A",
+    "expected_resolution": "Recovery via web browser",
+    "max_turns": 8,
+    "opening_message": "HELP! I was updating my RLC-810A firmware and the power went out during the update. Now the camera won't turn on properly - the light just blinks. Did I brick my camera??"
+  },
+  {
+    "id": "scenario_009",
+    "name": "PoE camera not connecting to NVR",
+    "user_persona": "A DIY installer setting up a new system. Has basic networking knowledge. Methodical.",
+    "issue_category": "poe_connection",
+    "product": "RLC-1210A",
+    "expected_resolution": "Check cable and PoE port, try different port",
+    "max_turns": 6,
+    "opening_message": "I'm setting up a new RLC-1210A camera with my NVR. I've connected it via ethernet to the NVR's PoE port but the NVR doesn't detect the camera. The camera's LED isn't on at all."
+  },
+  {
+    "id": "scenario_010",
+    "name": "Two-way audio echo",
+    "user_persona": "A doorbell user who wants to talk to visitors. Non-technical. Friendly.",
+    "issue_category": "two_way_audio",
+    "product": "Reolink Video Doorbell",
+    "expected_resolution": "Use headphones and adjust volume",
+    "max_turns": 6,
+    "opening_message": "Hi! I love my Reolink doorbell camera but when I try to talk to someone at the door, there's a terrible echo. We can barely understand each other. Any tips?"
+  },
+  {
+    "id": "scenario_011",
+    "name": "Video quality poor - pixelated",
+    "user_persona": "A user who recently noticed quality degradation. Compares to how it used to look. Provides screenshots mentally.",
+    "issue_category": "video_quality",
+    "product": "RLC-510WA",
+    "expected_resolution": "Switch to Clear stream and check WiFi bandwidth",
+    "max_turns": 6,
+    "opening_message": "The video from my RLC-510WA used to be really sharp but now it looks pixelated and blurry. I haven't changed any settings. What could have caused this?"
+  },
+  {
+    "id": "scenario_012",
+    "name": "Playback shows green/corrupted frames",
+    "user_persona": "A concerned user who needs footage for an insurance claim. Time-sensitive. Stressed.",
+    "issue_category": "playback_issues",
+    "product": "RLN16-410",
+    "expected_resolution": "Check HDD health, possible HDD replacement",
+    "max_turns": 8,
+    "opening_message": "I need to pull footage from my NVR for an insurance claim but when I try to play back recordings from last week, many of them show green/broken images. I REALLY need this footage. Is there any way to recover it?"
+  }
+]
