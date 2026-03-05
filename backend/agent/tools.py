@@ -1,43 +1,128 @@
-"""Tool definitions for the Reolink customer service agent (OpenAI function calling format)."""
+"""Tool definitions for the Reolink customer service agent (OpenAI function calling format).
+
+SOP-based tools:
+  1. identify_goal → match user intent to a goal_id
+  2. get_clarifying_questions → get questions to determine scene
+  3. match_scene_and_get_sop → given answers, find the right SOP
+  4. get_sop_step → get a specific step from the SOP decision tree
+  5. get_product_info → look up product specs
+  6. escalate_to_human → escalate unresolvable issues
+"""
 
 TOOLS = [
     {
         "type": "function",
         "function": {
-            "name": "search_knowledge_base",
+            "name": "identify_goal",
             "description": (
-                "Search the Reolink troubleshooting knowledge base for articles matching "
-                "a query. Use this tool BEFORE answering any technical support question to "
-                "find relevant troubleshooting guides. Returns article summaries with "
-                "relevance scores."
+                "Identify the user's troubleshooting goal from their message. "
+                "Returns a list of available goals with IDs. Use this FIRST to "
+                "understand what the user needs help with. The LLM should map "
+                "the user's description (in any language) to the correct goal_id."
             ),
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "query": {
+                    "lang": {
                         "type": "string",
-                        "description": "Search query describing the customer's issue, e.g. 'camera offline after power outage'",
-                    },
-                    "category": {
-                        "type": "string",
-                        "enum": [
-                            "camera_offline",
-                            "night_vision",
-                            "motion_detection",
-                            "app_connectivity",
-                            "nvr_recording",
-                            "firmware_update",
-                            "poe_connection",
-                            "wifi_signal",
-                            "video_quality",
-                            "storage_sd_card",
-                            "two_way_audio",
-                            "playback_issues",
-                        ],
-                        "description": "Optional category filter to narrow results",
+                        "enum": ["en", "zh"],
+                        "description": "Language for goal names. Use 'zh' if the user writes in Chinese, 'en' otherwise.",
                     },
                 },
-                "required": ["query"],
+                "required": ["lang"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_clarifying_questions",
+            "description": (
+                "Get the clarifying questions needed to determine the exact "
+                "troubleshooting scenario (scene) for a given goal. Ask the user "
+                "these questions to narrow down the root cause. The questions help "
+                "build a decision path to the correct SOP."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "goal_id": {
+                        "type": "string",
+                        "description": "The goal ID identified from the user's intent (e.g., 'camera_offline', 'night_vision_issue')",
+                    },
+                    "lang": {
+                        "type": "string",
+                        "enum": ["en", "zh"],
+                        "description": "Language for questions",
+                    },
+                },
+                "required": ["goal_id", "lang"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "match_scene_and_get_sop",
+            "description": (
+                "Based on the user's answers to clarifying questions, match the "
+                "correct scene and retrieve the full SOP decision tree. The answers "
+                "dict should map question_id to the selected option. Returns the "
+                "complete step-by-step troubleshooting SOP."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "goal_id": {
+                        "type": "string",
+                        "description": "The goal ID",
+                    },
+                    "answers": {
+                        "type": "object",
+                        "description": (
+                            "User's answers to clarifying questions. Keys are question_id, "
+                            "values are the selected option string. Example: "
+                            '{"connection_type": "wifi", "trigger_event": "power_outage"}'
+                        ),
+                    },
+                    "lang": {
+                        "type": "string",
+                        "enum": ["en", "zh"],
+                        "description": "Language for SOP steps",
+                    },
+                },
+                "required": ["goal_id", "answers", "lang"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_sop_step",
+            "description": (
+                "Get a specific step from an SOP by step_id. Use this when "
+                "progressing through the SOP decision tree — after the user "
+                "reports whether a step succeeded or failed, get the next step "
+                "based on on_success or on_failure."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "sop_id": {
+                        "type": "string",
+                        "description": "The SOP ID",
+                    },
+                    "step_id": {
+                        "type": "string",
+                        "description": "The step ID to retrieve (e.g., 's1', 's2', 's3')",
+                    },
+                    "lang": {
+                        "type": "string",
+                        "enum": ["en", "zh"],
+                        "description": "Language for step content",
+                    },
+                },
+                "required": ["sop_id", "step_id", "lang"],
             },
         },
     },
@@ -55,7 +140,7 @@ TOOLS = [
                 "properties": {
                     "model_name": {
                         "type": "string",
-                        "description": "Product model name or partial name, e.g. 'RLC-810A', 'Argus 3 Pro', 'E1 Zoom'",
+                        "description": "Product model name or partial name, e.g. 'RLC-810A', 'Argus 3 Pro'",
                     },
                 },
                 "required": ["model_name"],
@@ -65,46 +150,25 @@ TOOLS = [
     {
         "type": "function",
         "function": {
-            "name": "get_troubleshooting_steps",
-            "description": (
-                "Get the full step-by-step troubleshooting guide for a specific article. "
-                "Use this after search_knowledge_base returns matching articles, to get "
-                "the complete solution steps for the most relevant article."
-            ),
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "article_id": {
-                        "type": "string",
-                        "description": "The article ID from search results, e.g. 'co_001', 'nv_002'",
-                    },
-                },
-                "required": ["article_id"],
-            },
-        },
-    },
-    {
-        "type": "function",
-        "function": {
             "name": "escalate_to_human",
             "description": (
                 "Escalate the conversation to a human support agent. Use this when: "
-                "(1) troubleshooting steps didn't resolve the issue after 2-3 attempts, "
-                "(2) the issue likely requires hardware repair/RMA, "
-                "(3) the customer explicitly requests human support, or "
-                "(4) the issue is outside the scope of troubleshooting (billing, returns, etc.)."
+                "(1) the SOP steps have been exhausted without resolution, "
+                "(2) a step's on_failure points to 'escalate', "
+                "(3) the issue likely requires hardware repair/RMA, "
+                "(4) the customer explicitly requests human support."
             ),
             "parameters": {
                 "type": "object",
                 "properties": {
                     "reason": {
                         "type": "string",
-                        "description": "Detailed reason for escalation, including what was tried",
+                        "description": "Detailed reason for escalation, including what SOP steps were tried",
                     },
                     "severity": {
                         "type": "string",
                         "enum": ["low", "medium", "high"],
-                        "description": "Severity: low=general inquiry, medium=persistent issue, high=hardware defect/safety concern",
+                        "description": "Severity: low=general inquiry, medium=persistent issue, high=hardware defect/safety",
                     },
                 },
                 "required": ["reason", "severity"],

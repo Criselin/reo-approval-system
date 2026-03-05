@@ -1,0 +1,935 @@
+{
+  "sops": [
+    {
+      "sop_id": "sop_wifi_reconnect",
+      "sop_name": { "en": "WiFi Camera Reconnection After Router Restart", "zh": "WiFi 摄像头路由器重启后重连" },
+      "applicable_products": ["wifi_cameras", "battery_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": {
+            "en": "Wait 3-5 minutes. After a router restart, the camera may take time to automatically reconnect. Check the app to see if the camera comes back online.",
+            "zh": "等待 3-5 分钟。路由器重启后，摄像头可能需要一些时间自动重连。请检查 App 看摄像头是否恢复在线。"
+          },
+          "expected_result": {
+            "en": "Camera reconnects and shows online in the app.",
+            "zh": "摄像头重新连接并在 App 中显示在线。"
+          },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": {
+            "en": "Power cycle the camera: Unplug the camera's power cable, wait 30 seconds, then plug it back in. Wait 1-2 minutes for it to fully boot.",
+            "zh": "重启摄像头：拔掉摄像头电源线，等待 30 秒后重新插上。等待 1-2 分钟让它完全启动。"
+          },
+          "expected_result": {
+            "en": "Camera boots up and reconnects to WiFi.",
+            "zh": "摄像头启动并重新连接 WiFi。"
+          },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": {
+            "en": "Check if the WiFi network name (SSID) or password has changed. If your router assigned a new SSID after the restart, the camera may not reconnect. Go to the camera's WiFi settings and re-enter the WiFi credentials.",
+            "zh": "检查 WiFi 网络名称（SSID）或密码是否改变。如果路由器重启后分配了新的 SSID，摄像头可能无法重连。请进入摄像头 WiFi 设置，重新输入 WiFi 凭据。"
+          },
+          "expected_result": {
+            "en": "Camera connects to the correct WiFi network.",
+            "zh": "摄像头连接到正确的 WiFi 网络。"
+          },
+          "on_success": "resolved",
+          "on_failure": "s4"
+        },
+        {
+          "step_id": "s4",
+          "instruction": {
+            "en": "Assign a static IP to the camera to prevent DHCP conflicts: In the Reolink app, go to Device Settings > Network > Network Information, and set a static IP address outside your router's DHCP range.",
+            "zh": "为摄像头分配静态 IP 以防止 DHCP 冲突：在 Reolink App 中，进入 设备设置 > 网络 > 网络信息，设置一个在路由器 DHCP 范围之外的静态 IP 地址。"
+          },
+          "expected_result": {
+            "en": "Camera has a fixed IP and reconnects reliably.",
+            "zh": "摄像头有固定 IP 并可靠重连。"
+          },
+          "on_success": "resolved",
+          "on_failure": "s5"
+        },
+        {
+          "step_id": "s5",
+          "instruction": {
+            "en": "Factory reset the camera: Press and hold the reset button on the camera for 10 seconds until you hear a voice prompt. Then re-add the camera in the app using the QR code setup.",
+            "zh": "恢复出厂设置：按住摄像头上的复位按钮 10 秒，直到听到语音提示。然后在 App 中使用二维码重新添加摄像头。"
+          },
+          "expected_result": {
+            "en": "Camera is reset and set up fresh.",
+            "zh": "摄像头被重置并重新设置。"
+          },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_wifi_signal_fix",
+      "sop_name": { "en": "Fix Weak WiFi Signal", "zh": "修复 WiFi 信号弱" },
+      "applicable_products": ["wifi_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": {
+            "en": "Check signal strength: In Reolink App > Device Settings > Network > WiFi. You need at least 2 bars (3+ recommended). If 1 bar or less, the signal is too weak.",
+            "zh": "检查信号强度：在 Reolink App > 设备设置 > 网络 > WiFi 中查看。至少需要 2 格信号（建议 3 格以上）。如果只有 1 格或更少，信号太弱。"
+          },
+          "expected_result": { "en": "User reports signal strength.", "zh": "用户报告信号强度。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": {
+            "en": "If using 5GHz WiFi, switch to 2.4GHz band. 2.4GHz has better range and wall penetration. Check your router settings to ensure 2.4GHz is enabled.",
+            "zh": "如果使用 5GHz WiFi，请切换到 2.4GHz 频段。2.4GHz 穿墙效果更好、覆盖范围更大。检查路由器设置确保 2.4GHz 已启用。"
+          },
+          "expected_result": { "en": "Camera connects on 2.4GHz with better signal.", "zh": "摄像头在 2.4GHz 上连接且信号更好。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": {
+            "en": "Reduce obstacles between camera and router. Concrete walls, metal objects, and appliances weaken the signal. Consider moving the router closer or adding a WiFi extender/repeater halfway between the router and camera.",
+            "zh": "减少摄像头和路由器之间的障碍物。混凝土墙、金属物体和电器会削弱信号。考虑将路由器移近，或在路由器和摄像头中间位置添加 WiFi 扩展器/中继器。"
+          },
+          "expected_result": { "en": "Signal improves to 2+ bars.", "zh": "信号提升到 2 格以上。" },
+          "on_success": "resolved",
+          "on_failure": "s4"
+        },
+        {
+          "step_id": "s4",
+          "instruction": {
+            "en": "Change WiFi channel on your router to avoid interference. Use a WiFi analyzer app on your phone to find the least congested channel, then change to it in router settings.",
+            "zh": "更改路由器的 WiFi 频道以避免干扰。使用手机上的 WiFi 分析器应用找到最不拥挤的频道，然后在路由器设置中更改。"
+          },
+          "expected_result": { "en": "Less interference, more stable connection.", "zh": "干扰减少，连接更稳定。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_check_power_supply",
+      "sop_name": { "en": "Check Camera Power Supply", "zh": "检查摄像头供电" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": {
+            "en": "Verify the power adapter is plugged in firmly at both ends (wall outlet and camera). Try a different wall outlet to rule out a dead outlet.",
+            "zh": "确认电源适配器两端（墙壁插座和摄像头）都牢固插好。尝试不同的墙壁插座以排除插座故障。"
+          },
+          "expected_result": { "en": "Camera LED turns on.", "zh": "摄像头指示灯亮起。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": {
+            "en": "Check the power adapter specifications. Reolink cameras typically require 12V/2A DC power. Using a wrong adapter can prevent the camera from powering on. Check the label on your adapter.",
+            "zh": "检查电源适配器规格。Reolink 摄像头通常需要 12V/2A 直流电源。使用错误的适配器可能导致摄像头无法开机。检查适配器上的标签。"
+          },
+          "expected_result": { "en": "Adapter matches requirements.", "zh": "适配器符合要求。" },
+          "on_success": "s3",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": {
+            "en": "Try a different compatible power adapter if available. If the camera powers on with a different adapter, the original adapter is faulty.",
+            "zh": "如果有的话，尝试使用不同的兼容电源适配器。如果摄像头使用不同适配器能开机，说明原来的适配器有故障。"
+          },
+          "expected_result": { "en": "Camera powers on with new adapter.", "zh": "摄像头使用新适配器能开机。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_poe_nvr_setup",
+      "sop_name": { "en": "PoE Camera NVR Setup", "zh": "PoE 摄像头 NVR 设置" },
+      "applicable_products": ["poe_cameras", "nvr"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": {
+            "en": "Check the Ethernet cable: Use a Cat5e or Cat6 cable. Ensure the cable run is under 100 meters. Inspect both ends of the cable for damage or loose connectors.",
+            "zh": "检查网线：使用 Cat5e 或 Cat6 网线。确保线路长度不超过 100 米。检查网线两端是否有损坏或松动。"
+          },
+          "expected_result": { "en": "Cable is properly connected and undamaged.", "zh": "网线正确连接且无损坏。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": {
+            "en": "Try a different PoE port on the NVR. Connect the camera to another PoE port to rule out a faulty port.",
+            "zh": "尝试 NVR 上不同的 PoE 端口。将摄像头连接到另一个 PoE 端口以排除端口故障。"
+          },
+          "expected_result": { "en": "Camera is detected on the new port.", "zh": "摄像头在新端口上被检测到。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": {
+            "en": "Check the NVR's channel limit. Verify you haven't exceeded the maximum camera capacity (check your NVR model: 4/8/16 channels). Go to NVR Menu > IP Channel to see connected cameras.",
+            "zh": "检查 NVR 的通道限制。确认没有超过最大摄像头容量（检查你的 NVR 型号：4/8/16 通道）。进入 NVR 菜单 > IP 通道查看已连接摄像头。"
+          },
+          "expected_result": { "en": "Available channel found.", "zh": "找到可用通道。" },
+          "on_success": "s4",
+          "on_failure": "s4"
+        },
+        {
+          "step_id": "s4",
+          "instruction": {
+            "en": "Test the camera with a 12V DC power adapter directly (bypassing PoE) to check if the camera itself works. If it powers on with DC but not PoE, the issue is with the PoE source.",
+            "zh": "使用 12V DC 电源适配器直接测试摄像头（绕过 PoE）以检查摄像头本身是否正常。如果用直流电能开机但 PoE 不行，问题在 PoE 供电端。"
+          },
+          "expected_result": { "en": "Camera works with direct power.", "zh": "摄像头使用直接供电正常。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_poe_reconnect",
+      "sop_name": { "en": "PoE Camera Reconnection", "zh": "PoE 摄像头重连" },
+      "applicable_products": ["poe_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Power cycle: Disconnect the Ethernet cable from the camera, wait 30 seconds, reconnect. Wait 2 minutes.", "zh": "重启：断开摄像头的网线，等待 30 秒后重新连接。等待 2 分钟。" },
+          "expected_result": { "en": "Camera reconnects.", "zh": "摄像头重连。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Try a different Ethernet cable. A damaged cable can cause intermittent issues.", "zh": "尝试不同的网线。损坏的网线可能导致间歇性问题。" },
+          "expected_result": { "en": "Camera connects with new cable.", "zh": "摄像头使用新网线连接成功。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Assign a static IP to the camera: Access the camera via NVR or Reolink Client > Network settings > set static IP. This prevents DHCP conflicts.", "zh": "为摄像头分配静态 IP：通过 NVR 或 Reolink Client > 网络设置 > 设置静态 IP。这可以防止 DHCP 冲突。" },
+          "expected_result": { "en": "Camera has fixed IP and stays connected.", "zh": "摄像头有固定 IP 并保持连接。" },
+          "on_success": "resolved",
+          "on_failure": "s4"
+        },
+        {
+          "step_id": "s4",
+          "instruction": { "en": "Update camera and NVR firmware to the latest version. Some firmware versions fix connectivity bugs.", "zh": "将摄像头和 NVR 固件更新到最新版本。某些固件版本修复了连接问题。" },
+          "expected_result": { "en": "Firmware updated, connection stable.", "zh": "固件已更新，连接稳定。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_poe_power_check",
+      "sop_name": { "en": "PoE Camera Power Check", "zh": "PoE 摄像头供电检查" },
+      "applicable_products": ["poe_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check the PoE source: Verify your PoE switch/NVR supports 802.3af standard (active PoE). Passive PoE injectors may not be compatible.", "zh": "检查 PoE 供电源：确认您的 PoE 交换机/NVR 支持 802.3af 标准（主动 PoE）。被动 PoE 注入器可能不兼容。" },
+          "expected_result": { "en": "PoE source is compatible.", "zh": "PoE 供电源兼容。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Check total PoE power budget. Each camera needs ~13W. If too many cameras are connected, the total may exceed the switch/NVR budget. Check the PoE budget in your switch/NVR specs.", "zh": "检查总 PoE 功率预算。每个摄像头需要约 13W。如果连接太多摄像头，总功率可能超过交换机/NVR 的预算。检查交换机/NVR 规格中的 PoE 预算。" },
+          "expected_result": { "en": "Power budget is sufficient.", "zh": "功率预算充足。" },
+          "on_success": "s3",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Check cable length — PoE works up to 100 meters (330 feet). If your cable is longer, use a PoE extender.", "zh": "检查网线长度——PoE 最远支持 100 米。如果网线更长，请使用 PoE 延长器。" },
+          "expected_result": { "en": "Cable length is within range.", "zh": "网线长度在范围内。" },
+          "on_success": "s4",
+          "on_failure": "resolved"
+        },
+        {
+          "step_id": "s4",
+          "instruction": { "en": "Test with 12V DC adapter directly to verify the camera hardware. If the camera doesn't power on with direct DC either, the camera may have a hardware defect.", "zh": "使用 12V DC 适配器直接测试以验证摄像头硬件。如果直流供电也无法开机，摄像头可能有硬件缺陷。" },
+          "expected_result": { "en": "Camera works with DC power.", "zh": "摄像头使用直流电正常工作。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_battery_reconnect",
+      "sop_name": { "en": "Battery Camera Reconnection", "zh": "电池摄像头重连" },
+      "applicable_products": ["battery_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check battery level: Remove the battery and check charge level. If low, fully charge it before reinserting.", "zh": "检查电池电量：取出电池检查电量。如果电量低，请充满电后再装回。" },
+          "expected_result": { "en": "Battery is charged and reinserted.", "zh": "电池充满并装回。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Remove and reinsert the battery. This performs a hard reboot. Wait for the camera to start up (you should hear a voice prompt).", "zh": "取出并重新装入电池。这会执行硬重启。等待摄像头启动（应该能听到语音提示）。" },
+          "expected_result": { "en": "Camera boots and connects to WiFi.", "zh": "摄像头启动并连接 WiFi。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Check WiFi signal at the camera location. Battery cameras only support 2.4GHz. Ensure your 2.4GHz network is available and the signal is strong enough.", "zh": "检查摄像头位置的 WiFi 信号。电池摄像头只支持 2.4GHz。确保 2.4GHz 网络可用且信号足够强。" },
+          "expected_result": { "en": "WiFi 2.4GHz is available with good signal.", "zh": "2.4GHz WiFi 可用且信号良好。" },
+          "on_success": "resolved",
+          "on_failure": "s4"
+        },
+        {
+          "step_id": "s4",
+          "instruction": { "en": "Factory reset: Hold the reset button for 10 seconds. Reconfigure via the Reolink app using QR code.", "zh": "恢复出厂设置：按住复位按钮 10 秒。通过 Reolink App 使用二维码重新配置。" },
+          "expected_result": { "en": "Camera reconfigured and online.", "zh": "摄像头重新配置并在线。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_firmware_recovery",
+      "sop_name": { "en": "Firmware Update Recovery", "zh": "固件升级恢复" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check if the camera is still accessible: Find the camera's IP in your router's DHCP client list. Try accessing it via web browser at http://<camera-ip>.", "zh": "检查摄像头是否仍然可以访问：在路由器的 DHCP 客户端列表中找到摄像头 IP。尝试在浏览器中访问 http://<摄像头IP>。" },
+          "expected_result": { "en": "Camera web interface loads.", "zh": "摄像头 Web 界面加载成功。" },
+          "on_success": "s2",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Upload firmware via web browser: Download the correct firmware from Reolink website (match model and hardware version exactly). Upload through the web interface's firmware upgrade page.", "zh": "通过浏览器上传固件：从 Reolink 官网下载正确的固件（型号和硬件版本必须完全匹配）。通过 Web 界面的固件升级页面上传。" },
+          "expected_result": { "en": "Firmware updates successfully.", "zh": "固件更新成功。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Hard reset: Unplug all power, wait 5 minutes, plug back in. If the camera has a reset button, hold it for 15 seconds while powering on.", "zh": "硬重置：拔掉所有电源，等待 5 分钟，重新插上。如果摄像头有复位按钮，在通电时按住 15 秒。" },
+          "expected_result": { "en": "Camera restarts and becomes accessible.", "zh": "摄像头重启并可以访问。" },
+          "on_success": "s2",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_ir_led_fix",
+      "sop_name": { "en": "Fix IR LED Not Working", "zh": "修复红外灯不工作" },
+      "applicable_products": ["all_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check IR light settings: Reolink App > Device Settings > Display > Day/Night mode. Set to 'Auto'. Also check IR Lights setting — set to 'Auto'.", "zh": "检查红外灯设置：Reolink App > 设备设置 > 显示 > 日夜模式，设置为「自动」。同时检查红外灯设置——设置为「自动」。" },
+          "expected_result": { "en": "IR mode set to Auto.", "zh": "红外模式设置为自动。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Power cycle the camera to reset the IR cut filter. Unplug for 30 seconds, plug back in.", "zh": "重启摄像头以重置红外滤片。拔掉电源 30 秒，重新插上。" },
+          "expected_result": { "en": "IR LEDs glow and night vision works.", "zh": "红外灯亮起，夜视正常。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Update firmware — some versions fix IR control bugs. Go to Device Settings > System > Firmware.", "zh": "更新固件——某些版本修复了红外控制问题。进入 设备设置 > 系统 > 固件。" },
+          "expected_result": { "en": "Firmware updated, IR works.", "zh": "固件已更新，红外正常。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_nv_blurry_fix",
+      "sop_name": { "en": "Fix Blurry Night Vision", "zh": "修复夜视模糊" },
+      "applicable_products": ["all_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Clean the camera lens with a soft microfiber cloth. Dust, moisture, or spider webs cause foggy images.", "zh": "用柔软的超细纤维布清洁摄像头镜头。灰尘、湿气或蜘蛛网会导致画面模糊。" },
+          "expected_result": { "en": "Lens is clean, image clears up.", "zh": "镜头干净，画面清晰。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Check for nearby reflective surfaces (walls, windows, ceilings within 1 meter). IR light bouncing off these causes overexposure. Reposition the camera to avoid reflection.", "zh": "检查附近是否有反光表面（1 米内的墙壁、窗户、天花板）。红外光反射会导致过曝。重新调整摄像头位置避免反射。" },
+          "expected_result": { "en": "No reflection, clearer night image.", "zh": "无反射，夜间画面更清晰。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Reduce IR LED brightness: Device Settings > Display > IR Lights. If too bright at close range, lower the brightness level.", "zh": "降低红外灯亮度：设备设置 > 显示 > 红外灯。如果近距离太亮，降低亮度等级。" },
+          "expected_result": { "en": "Night vision exposure normalizes.", "zh": "夜视曝光正常。" },
+          "on_success": "resolved",
+          "on_failure": "s4"
+        },
+        {
+          "step_id": "s4",
+          "instruction": { "en": "Check for condensation inside the housing. If installed outdoors, bring the camera indoors to dry. Consider using silica gel near the mounting area.", "zh": "检查外壳内部是否有冷凝水。如果安装在室外，将摄像头带到室内晾干。考虑在安装区域使用硅胶干燥剂。" },
+          "expected_result": { "en": "Condensation cleared.", "zh": "冷凝水清除。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_nv_overexposed_fix",
+      "sop_name": { "en": "Fix Night Vision Overexposure", "zh": "修复夜视过曝" },
+      "applicable_products": ["all_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Remove any objects close to the camera lens (within 30cm). Close objects reflect IR light causing white-out.", "zh": "移除靠近摄像头镜头的任何物体（30cm 以内）。近距离物体反射红外光导致画面发白。" },
+          "expected_result": { "en": "No close objects, exposure normalizes.", "zh": "无近距离物体，曝光正常。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Reduce IR brightness in settings. If your camera has adjustable IR LED levels, lower them.", "zh": "在设置中降低红外亮度。如果您的摄像头有可调节的红外灯等级，请降低。" },
+          "expected_result": { "en": "Overexposure reduced.", "zh": "过曝减少。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "If your camera supports Color Night Vision with spotlights, try switching to that mode: Device Settings > Display > Night Vision Mode > Color.", "zh": "如果您的摄像头支持带聚光灯的彩色夜视，尝试切换到该模式：设备设置 > 显示 > 夜视模式 > 彩色。" },
+          "expected_result": { "en": "Color night vision provides better image.", "zh": "彩色夜视提供更好的画面。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_ir_cut_filter_fix",
+      "sop_name": { "en": "Fix Stuck IR Cut Filter", "zh": "修复红外滤片卡住" },
+      "applicable_products": ["all_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Set Day/Night mode to 'Auto' (not forced B&W): Device Settings > Display > Day/Night.", "zh": "将日夜模式设置为「自动」（不是强制黑白）：设备设置 > 显示 > 日夜模式。" },
+          "expected_result": { "en": "Mode set to Auto.", "zh": "模式设置为自动。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Power cycle the camera — this can mechanically unstick the IR cut filter. Unplug for 60 seconds (longer than usual), then replug.", "zh": "重启摄像头——这可以机械地释放卡住的红外滤片。拔掉电源 60 秒（比平常更长），然后重新插上。" },
+          "expected_result": { "en": "Camera switches to color mode in daylight.", "zh": "摄像头在日光下切换到彩色模式。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Update firmware — IR cut filter control improvements are common in firmware updates.", "zh": "更新固件——红外滤片控制改进在固件更新中很常见。" },
+          "expected_result": { "en": "Firmware updated, filter works.", "zh": "固件已更新，滤片正常。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_md_enable_and_configure",
+      "sop_name": { "en": "Enable and Configure Motion Detection", "zh": "启用和配置移动侦测" },
+      "applicable_products": ["wired_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Enable motion detection: Reolink App > Device Settings > Alarm Settings > Motion Detection > toggle ON.", "zh": "启用移动侦测：Reolink App > 设备设置 > 报警设置 > 移动侦测 > 打开开关。" },
+          "expected_result": { "en": "Motion detection enabled.", "zh": "移动侦测已启用。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Set sensitivity to 60-80: Alarm Settings > sensitivity slider. Default 50 may miss some motion.", "zh": "将灵敏度设置为 60-80：报警设置 > 灵敏度滑块。默认 50 可能会漏检一些移动。" },
+          "expected_result": { "en": "Sensitivity adjusted.", "zh": "灵敏度已调整。" },
+          "on_success": "s3",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Check detection zone: Alarm Settings > Motion Detection Zone. Ensure the area you want to monitor is NOT blocked out (clear zones = monitored).", "zh": "检查检测区域：报警设置 > 移动侦测区域。确保您要监控的区域没有被屏蔽（清除的区域 = 被监控）。" },
+          "expected_result": { "en": "Detection zone covers target area.", "zh": "检测区域覆盖目标区域。" },
+          "on_success": "s4",
+          "on_failure": "s4"
+        },
+        {
+          "step_id": "s4",
+          "instruction": { "en": "Enable push notifications: App Settings > Push Notification. Also check your phone's notification settings for Reolink app — ensure notifications are allowed.", "zh": "启用推送通知：App 设置 > 推送通知。同时检查手机的 Reolink App 通知设置——确保允许通知。" },
+          "expected_result": { "en": "Notifications working.", "zh": "通知正常。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_pir_fix",
+      "sop_name": { "en": "Fix PIR Sensor on Battery Camera", "zh": "修复电池摄像头 PIR 传感器" },
+      "applicable_products": ["battery_cameras"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Set PIR sensitivity to High: Device Settings > PIR Settings > Sensitivity > High.", "zh": "将 PIR 灵敏度设置为高：设备设置 > PIR 设置 > 灵敏度 > 高。" },
+          "expected_result": { "en": "PIR sensitivity maximized.", "zh": "PIR 灵敏度已最大化。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Adjust mounting angle: PIR detects lateral movement (across the sensor) best. Mount the camera so people walk across its field of view, not directly toward it. Optimal height: 2-3 meters.", "zh": "调整安装角度：PIR 传感器对横向移动（穿过传感器）的检测效果最好。安装时确保人从视野中横穿，而不是直接朝向摄像头走来。最佳高度：2-3 米。" },
+          "expected_result": { "en": "PIR now detects motion.", "zh": "PIR 现在能检测到移动。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Remove the battery, wait 30 seconds, reinsert. This resets the PIR hardware.", "zh": "取出电池，等待 30 秒，重新装入。这会重置 PIR 硬件。" },
+          "expected_result": { "en": "PIR resets and works.", "zh": "PIR 重置并正常工作。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_reduce_false_alarms",
+      "sop_name": { "en": "Reduce False Motion Alerts", "zh": "减少移动侦测误报" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Reduce sensitivity to 30-40: Alarm Settings > sensitivity slider. This filters out small movements like leaves and insects.", "zh": "将灵敏度降低到 30-40：报警设置 > 灵敏度滑块。这可以过滤树叶和昆虫等小移动。" },
+          "expected_result": { "en": "Fewer triggers from small objects.", "zh": "小物体触发减少。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Set detection zones to exclude busy areas: Alarm Settings > Motion Detection Zone. Block out areas with trees, roads, or other frequent movement.", "zh": "设置检测区域排除繁忙区域：报警设置 > 移动侦测区域。屏蔽有树木、道路或其他频繁移动的区域。" },
+          "expected_result": { "en": "False alarms from excluded areas stop.", "zh": "被排除区域的误报停止。" },
+          "on_success": "s3",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Enable Smart Detection (Person/Vehicle only): If your camera supports it, enable only Person and/or Vehicle detection. This uses AI to filter out animals, shadows, and objects.", "zh": "启用智能检测（仅人/车辆）：如果您的摄像头支持，只启用人物和/或车辆检测。这使用 AI 过滤动物、阴影和物体。" },
+          "expected_result": { "en": "Only relevant motion triggers alerts.", "zh": "只有相关的移动触发报警。" },
+          "on_success": "resolved",
+          "on_failure": "resolved"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_fix_push_notification",
+      "sop_name": { "en": "Fix Push Notifications", "zh": "修复推送通知" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Enable push in Reolink App: Device Settings > Push Notification > toggle ON.", "zh": "在 Reolink App 中启用推送：设备设置 > 推送通知 > 打开开关。" },
+          "expected_result": { "en": "Push enabled in app.", "zh": "App 中推送已启用。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Check phone notification settings: iOS: Settings > Reolink > Notifications > Allow. Android: Settings > Apps > Reolink > Notifications > Enable.", "zh": "检查手机通知设置：iOS：设置 > Reolink > 通知 > 允许。Android：设置 > 应用 > Reolink > 通知 > 启用。" },
+          "expected_result": { "en": "Phone allows Reolink notifications.", "zh": "手机允许 Reolink 通知。" },
+          "on_success": "s3",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Disable battery optimization for Reolink app (Android only): Settings > Battery > Reolink > Don't optimize. This prevents the system from killing the app in background.", "zh": "关闭 Reolink App 的电池优化（仅 Android）：设置 > 电池 > Reolink > 不优化。这防止系统在后台杀掉 App。" },
+          "expected_result": { "en": "Notifications arrive reliably.", "zh": "通知可靠到达。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_nvr_recording_fix",
+      "sop_name": { "en": "Fix NVR Not Recording", "zh": "修复 NVR 不录像" },
+      "applicable_products": ["nvr"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check HDD status: NVR Menu > Storage > HDD Management. Status should be 'Normal'. If 'Uninitialized', click 'Format' to initialize.", "zh": "检查硬盘状态：NVR 菜单 > 存储 > 硬盘管理。状态应为「正常」。如果是「未初始化」，点击「格式化」进行初始化。" },
+          "expected_result": { "en": "HDD shows Normal status.", "zh": "硬盘显示正常状态。" },
+          "on_success": "s2",
+          "on_failure": "sop_nvr_hdd_fix"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Check recording schedule: NVR Menu > Recording > Schedule. Ensure continuous or motion recording is enabled for all channels.", "zh": "检查录像计划：NVR 菜单 > 录像 > 计划。确保所有通道启用了连续或移动侦测录像。" },
+          "expected_result": { "en": "Schedule correctly configured.", "zh": "计划正确配置。" },
+          "on_success": "s3",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Enable overwrite: Storage settings > enable 'Overwrite' or 'Loop Recording'. If HDD is full and overwrite is off, recording stops.", "zh": "启用覆盖：存储设置 > 启用「覆盖」或「循环录像」。如果硬盘满了且覆盖关闭，录像会停止。" },
+          "expected_result": { "en": "Recording resumes.", "zh": "录像恢复。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_nvr_hdd_fix",
+      "sop_name": { "en": "Fix NVR HDD Not Detected", "zh": "修复 NVR 硬盘未检测到" },
+      "applicable_products": ["nvr"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Power off NVR, open the case, disconnect and reconnect the HDD SATA and power cables firmly. Close case and power on.", "zh": "关闭 NVR 电源，打开外壳，断开并重新牢固连接硬盘 SATA 和电源线。关闭外壳并开机。" },
+          "expected_result": { "en": "HDD is detected after reconnection.", "zh": "重新连接后硬盘被检测到。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Test the HDD on a computer to verify it's working. Connect via SATA-to-USB adapter. If the PC doesn't detect it, the HDD is likely faulty.", "zh": "在电脑上测试硬盘以验证是否正常。通过 SATA 转 USB 转接器连接。如果电脑也检测不到，硬盘可能有故障。" },
+          "expected_result": { "en": "HDD works on PC.", "zh": "硬盘在电脑上正常。" },
+          "on_success": "s3",
+          "on_failure": "escalate"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "If HDD is detected on PC but not NVR: Ensure it's a 3.5-inch SATA drive, surveillance-grade (WD Purple or Seagate SkyHawk recommended). Format it in the NVR: Storage > HDD > Format.", "zh": "如果硬盘在电脑上能检测到但 NVR 不行：确保是 3.5 英寸 SATA 硬盘，监控级（建议 WD Purple 或 Seagate SkyHawk）。在 NVR 中格式化：存储 > 硬盘 > 格式化。" },
+          "expected_result": { "en": "HDD formatted and working in NVR.", "zh": "硬盘在 NVR 中格式化并正常工作。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_corrupted_recording_fix",
+      "sop_name": { "en": "Fix Corrupted Recordings", "zh": "修复损坏的录像" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check storage health: For SD card — format in camera (Settings > Storage > Format). For NVR HDD — check SMART status in HDD Management.", "zh": "检查存储健康：SD 卡——在摄像头中格式化（设置 > 存储 > 格式化）。NVR 硬盘——在硬盘管理中检查 SMART 状态。" },
+          "expected_result": { "en": "Storage is healthy, new recordings are clean.", "zh": "存储健康，新录像正常。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Use a surveillance-grade storage device. Regular SD cards/HDDs aren't designed for continuous write operations. Recommended: SanDisk High Endurance SD, WD Purple HDD.", "zh": "使用监控级存储设备。普通 SD 卡/硬盘不是为连续写入操作设计的。建议：SanDisk High Endurance SD 卡，WD Purple 硬盘。" },
+          "expected_result": { "en": "New storage works correctly.", "zh": "新存储正常工作。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_playback_fix",
+      "sop_name": { "en": "Fix Playback Issues", "zh": "修复回放问题" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check the selected date in playback page. Recordings may be on a different day. Also verify the camera's time zone: Device Settings > System > Time.", "zh": "检查回放页面选择的日期。录像可能在不同的日期。同时验证摄像头时区：设备设置 > 系统 > 时间。" },
+          "expected_result": { "en": "Correct date selected, recordings found.", "zh": "选择正确日期，找到录像。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Switch between Clear and Fluent stream in playback. Sometimes one stream has recordings while the other doesn't.", "zh": "在回放中切换清晰和流畅画质。有时一个画质有录像而另一个没有。" },
+          "expected_result": { "en": "Recordings found in other stream.", "zh": "在另一个画质中找到录像。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Try using Reolink Client desktop software instead of mobile app for playback. It provides more reliable playback functionality.", "zh": "尝试使用 Reolink Client 桌面软件而不是手机 App 回放。它提供更可靠的回放功能。" },
+          "expected_result": { "en": "Playback works in desktop client.", "zh": "桌面客户端回放正常。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_remote_access_fix",
+      "sop_name": { "en": "Fix Remote Access", "zh": "修复远程访问" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Enable UID: Connect locally > Device Settings > Network > Advanced > UID > toggle ON.", "zh": "启用 UID：本地连接 > 设备设置 > 网络 > 高级 > UID > 打开开关。" },
+          "expected_result": { "en": "UID enabled.", "zh": "UID 已启用。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Check internet at camera location: Ensure your home network has a working internet connection. The camera needs internet for remote UID access.", "zh": "检查摄像头位置的网络：确保家里网络有正常的互联网连接。摄像头需要互联网才能通过 UID 远程访问。" },
+          "expected_result": { "en": "Internet works, remote access restored.", "zh": "互联网正常，远程访问恢复。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Change router DNS to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare). Some ISP DNS servers block UID P2P connections.", "zh": "将路由器 DNS 更改为 8.8.8.8（Google）或 1.1.1.1（Cloudflare）。某些 ISP DNS 服务器会阻止 UID P2P 连接。" },
+          "expected_result": { "en": "DNS changed, remote access works.", "zh": "DNS 已更改，远程访问正常。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_app_connection_fix",
+      "sop_name": { "en": "Fix App Connection Issues", "zh": "修复 App 连接问题" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check local network permission: iOS: Settings > Reolink > enable 'Local Network'. Android: ensure app has network access.", "zh": "检查本地网络权限：iOS：设置 > Reolink > 启用「本地网络」。Android：确保 App 有网络访问权限。" },
+          "expected_result": { "en": "Permission granted.", "zh": "权限已授予。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Disable VPN/firewall temporarily. Some VPNs block camera discovery on local network.", "zh": "临时关闭 VPN/防火墙。某些 VPN 会阻止本地网络上的摄像头发现。" },
+          "expected_result": { "en": "Camera discovered after disabling VPN.", "zh": "关闭 VPN 后发现摄像头。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Remove and re-add the camera in the app. Delete the camera entry, then add it again using QR code scan or manual UID entry.", "zh": "在 App 中删除并重新添加摄像头。删除摄像头条目，然后使用二维码扫描或手动输入 UID 重新添加。" },
+          "expected_result": { "en": "Camera re-added and accessible.", "zh": "摄像头重新添加并可访问。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_video_quality_fix",
+      "sop_name": { "en": "Fix Video Quality", "zh": "修复画质问题" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Switch to Clear stream: In live view, tap the quality toggle to 'Clear' (HD). 'Fluent' mode uses lower resolution.", "zh": "切换到清晰画质：在实时画面中，点击画质切换到「清晰」（高清）。「流畅」模式使用较低分辨率。" },
+          "expected_result": { "en": "Higher quality stream loads.", "zh": "更高画质的画面加载。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Clean the lens with a soft microfiber cloth. Fingerprints and dust cause permanent blur.", "zh": "用柔软的超细纤维布清洁镜头。指纹和灰尘会导致持续模糊。" },
+          "expected_result": { "en": "Image is sharper after cleaning.", "zh": "清洁后画面更清晰。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Check encode settings: Device Settings > Display > Encode. Set resolution to maximum. Increase bitrate for better quality (requires more bandwidth).", "zh": "检查编码设置：设备设置 > 显示 > 编码。将分辨率设置为最大。增加比特率以获得更好画质（需要更多带宽）。" },
+          "expected_result": { "en": "Maximum quality settings applied.", "zh": "最大画质设置已应用。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_video_lag_fix",
+      "sop_name": { "en": "Fix Video Lag/Freezing", "zh": "修复视频卡顿/卡死" },
+      "applicable_products": ["all"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Switch to Fluent stream to reduce bandwidth needs. Tap quality toggle in live view.", "zh": "切换到流畅画质以减少带宽需求。在实时画面中点击画质切换。" },
+          "expected_result": { "en": "Stream is smoother.", "zh": "画面更流畅。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Check network speed: WiFi cameras need at least 4Mbps upload for HD streaming. Run a speed test at the camera location. Consider using PoE for stable bandwidth.", "zh": "检查网络速度：WiFi 摄像头需要至少 4Mbps 上传速度才能流畅播放高清画面。在摄像头位置做速度测试。考虑使用 PoE 以获得稳定带宽。" },
+          "expected_result": { "en": "Sufficient bandwidth available.", "zh": "带宽充足。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Lower frame rate: Device Settings > Display > Encode > reduce frame rate from 15fps to 10fps. This reduces bandwidth requirements.", "zh": "降低帧率：设备设置 > 显示 > 编码 > 将帧率从 15fps 降低到 10fps。这可以减少带宽需求。" },
+          "expected_result": { "en": "Smoother with lower frame rate.", "zh": "降低帧率后更流畅。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_sd_card_detect",
+      "sop_name": { "en": "Fix SD Card Not Detected", "zh": "修复 SD 卡未检测到" },
+      "applicable_products": ["cameras_with_sd"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Reinsert the SD card: Power off camera, remove SD card, wait 10 seconds, reinsert firmly, power on.", "zh": "重新插入 SD 卡：关闭摄像头，取出 SD 卡，等待 10 秒，重新牢固插入，开机。" },
+          "expected_result": { "en": "SD card detected.", "zh": "SD 卡被检测到。" },
+          "on_success": "s2",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Format the SD card in the camera: Device Settings > Storage > Format SD Card. The card must be formatted by the camera, not a computer.", "zh": "在摄像头中格式化 SD 卡：设备设置 > 存储 > 格式化 SD 卡。SD 卡必须由摄像头格式化，不能用电脑。" },
+          "expected_result": { "en": "SD card formatted and working.", "zh": "SD 卡格式化并正常工作。" },
+          "on_success": "resolved",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "Check SD card specs: Must be Class 10 or UHS-1, microSD format, from a reputable brand (SanDisk, Samsung, Kingston). Max capacity depends on camera model (usually 128GB or 256GB). Avoid counterfeit cards.", "zh": "检查 SD 卡规格：必须是 Class 10 或 UHS-1，microSD 格式，来自知名品牌（SanDisk、Samsung、Kingston）。最大容量取决于摄像头型号（通常 128GB 或 256GB）。避免假冒卡。" },
+          "expected_result": { "en": "Card meets specifications.", "zh": "卡符合规格。" },
+          "on_success": "s2",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_sd_card_full",
+      "sop_name": { "en": "Fix SD Card Full", "zh": "修复 SD 卡存满" },
+      "applicable_products": ["cameras_with_sd"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Enable loop recording: Device Settings > Storage > enable 'Loop Recording' or 'Overwrite'. Oldest footage auto-deletes when full.", "zh": "启用循环录像：设备设置 > 存储 > 启用「循环录像」或「覆盖」。存满时自动删除最旧的录像。" },
+          "expected_result": { "en": "Loop recording enabled, recording resumes.", "zh": "循环录像已启用，录像恢复。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Switch to motion-only recording instead of 24/7 continuous. This uses significantly less storage.", "zh": "切换到仅移动侦测录像而不是 24/7 连续录像。这会显著减少存储使用。" },
+          "expected_result": { "en": "Storage usage reduced.", "zh": "存储使用减少。" },
+          "on_success": "resolved",
+          "on_failure": "resolved"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_sd_card_recording",
+      "sop_name": { "en": "Fix SD Card Not Recording", "zh": "修复 SD 卡不录像" },
+      "applicable_products": ["cameras_with_sd"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Check recording schedule: Device Settings > Recording Schedule. Ensure recording is enabled for the time periods you need.", "zh": "检查录像计划：设备设置 > 录像计划。确保在您需要的时段启用了录像。" },
+          "expected_result": { "en": "Schedule configured.", "zh": "计划已配置。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Verify SD card is properly detected and formatted: Device Settings > Storage. Should show card capacity and used/free space.", "zh": "验证 SD 卡已被正确检测和格式化：设备设置 > 存储。应显示卡容量和已用/可用空间。" },
+          "expected_result": { "en": "SD card shows in storage settings.", "zh": "SD 卡在存储设置中显示。" },
+          "on_success": "resolved",
+          "on_failure": "sop_sd_card_detect"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_audio_enable",
+      "sop_name": { "en": "Enable Two-Way Audio", "zh": "启用双向语音" },
+      "applicable_products": ["cameras_with_speaker"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Enable audio recording: Device Settings > Audio and Light > toggle ON 'Record Audio'.", "zh": "启用录音：设备设置 > 音频和灯光 > 打开「录音」开关。" },
+          "expected_result": { "en": "Audio enabled.", "zh": "音频已启用。" },
+          "on_success": "s2",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Check app microphone permission: iOS: Settings > Reolink > Microphone > Allow. Android: Settings > Apps > Reolink > Permissions > Microphone.", "zh": "检查 App 麦克风权限：iOS：设置 > Reolink > 麦克风 > 允许。Android：设置 > 应用 > Reolink > 权限 > 麦克风。" },
+          "expected_result": { "en": "Microphone permission granted.", "zh": "麦克风权限已授予。" },
+          "on_success": "s3",
+          "on_failure": "s3"
+        },
+        {
+          "step_id": "s3",
+          "instruction": { "en": "In live view, press and HOLD the talk button to speak. Release to listen. Also check the volume slider at the bottom of the live view.", "zh": "在实时画面中，按住对讲按钮说话。松开后收听。同时检查实时画面底部的音量滑块。" },
+          "expected_result": { "en": "Two-way audio works.", "zh": "双向语音正常。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_audio_echo_fix",
+      "sop_name": { "en": "Fix Audio Echo", "zh": "修复音频回声" },
+      "applicable_products": ["cameras_with_speaker"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Use earphones/headphones when using two-way audio. This eliminates the feedback loop between your phone speaker and microphone.", "zh": "使用耳机进行双向语音通话。这可以消除手机扬声器和麦克风之间的反馈回路。" },
+          "expected_result": { "en": "Echo eliminated.", "zh": "回声消除。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Lower the volume on both your phone and the camera speaker settings. High volume increases echo.", "zh": "降低手机和摄像头扬声器设置的音量。音量太高会增加回声。" },
+          "expected_result": { "en": "Echo reduced.", "zh": "回声减少。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    },
+    {
+      "sop_id": "sop_audio_volume_fix",
+      "sop_name": { "en": "Fix Low Audio Volume", "zh": "修复音量低" },
+      "applicable_products": ["cameras_with_speaker"],
+      "steps": [
+        {
+          "step_id": "s1",
+          "instruction": { "en": "Increase volume slider in Reolink app live view (bottom of screen). Also increase your phone's media volume.", "zh": "增加 Reolink App 实时画面中的音量滑块（屏幕底部）。同时增加手机的媒体音量。" },
+          "expected_result": { "en": "Volume improved.", "zh": "音量改善。" },
+          "on_success": "resolved",
+          "on_failure": "s2"
+        },
+        {
+          "step_id": "s2",
+          "instruction": { "en": "Check camera speaker placement. If the speaker is obstructed or facing a wall, sound will be muffled. Also ensure nothing is covering the microphone hole.", "zh": "检查摄像头扬声器位置。如果扬声器被遮挡或面向墙壁，声音会被闷住。同时确保没有东西覆盖麦克风孔。" },
+          "expected_result": { "en": "Speaker unobstructed, volume improved.", "zh": "扬声器无遮挡，音量改善。" },
+          "on_success": "resolved",
+          "on_failure": "escalate"
+        }
+      ]
+    }
+  ]
+}

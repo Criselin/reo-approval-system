@@ -1,0 +1,504 @@
+{
+  "version": "2.0",
+  "description": "Reolink troubleshooting SOP knowledge base - decision tree structure",
+  "goals": [
+    {
+      "goal_id": "camera_offline",
+      "goal_name": {
+        "en": "Camera is offline / not connecting",
+        "zh": "摄像头离线/无法连接"
+      },
+      "intent_keywords": ["offline", "not connecting", "disconnected", "can't see camera", "no video", "离线", "连不上", "没有画面", "断开"],
+      "clarifying_questions": [
+        {
+          "question_id": "connection_type",
+          "question": {
+            "en": "How is your camera connected — via PoE (Ethernet cable to NVR/switch), WiFi, or battery-powered?",
+            "zh": "您的摄像头是如何连接的——通过 PoE（网线连接到 NVR/交换机）、WiFi 还是电池供电？"
+          },
+          "options": ["poe", "wifi", "battery"]
+        },
+        {
+          "question_id": "trigger_event",
+          "question": {
+            "en": "When did the issue start? Was there any event before it happened (power outage, router restart, firmware update, new installation)?",
+            "zh": "问题是什么时候开始的？之前是否发生了什么（停电、路由器重启、固件升级、新安装）？"
+          },
+          "options": ["power_outage", "router_restart", "firmware_update", "new_install", "unknown"]
+        },
+        {
+          "question_id": "led_status",
+          "question": {
+            "en": "Can you see any LED light on the camera? What color is it?",
+            "zh": "您能看到摄像头上有指示灯吗？是什么颜色的？"
+          },
+          "options": ["no_light", "red", "blue_green", "blinking"]
+        }
+      ],
+      "scenes": [
+        {
+          "scene_id": "wifi_after_router_restart",
+          "scene_name": {
+            "en": "WiFi camera offline after router restart/power outage",
+            "zh": "WiFi 摄像头在路由器重启/停电后离线"
+          },
+          "match_conditions": {
+            "connection_type": ["wifi"],
+            "trigger_event": ["power_outage", "router_restart"]
+          },
+          "sop_id": "sop_wifi_reconnect"
+        },
+        {
+          "scene_id": "wifi_signal_weak",
+          "scene_name": {
+            "en": "WiFi camera offline due to weak signal",
+            "zh": "WiFi 摄像头因信号弱离线"
+          },
+          "match_conditions": {
+            "connection_type": ["wifi"],
+            "trigger_event": ["unknown"],
+            "led_status": ["blue_green", "blinking"]
+          },
+          "sop_id": "sop_wifi_signal_fix"
+        },
+        {
+          "scene_id": "wifi_no_power",
+          "scene_name": {
+            "en": "WiFi camera has no power (no LED)",
+            "zh": "WiFi 摄像头无供电（无指示灯）"
+          },
+          "match_conditions": {
+            "connection_type": ["wifi"],
+            "led_status": ["no_light"]
+          },
+          "sop_id": "sop_check_power_supply"
+        },
+        {
+          "scene_id": "poe_nvr_not_detected",
+          "scene_name": {
+            "en": "PoE camera not detected by NVR",
+            "zh": "PoE 摄像头未被 NVR 检测到"
+          },
+          "match_conditions": {
+            "connection_type": ["poe"],
+            "trigger_event": ["new_install"]
+          },
+          "sop_id": "sop_poe_nvr_setup"
+        },
+        {
+          "scene_id": "poe_was_working",
+          "scene_name": {
+            "en": "PoE camera was working but went offline",
+            "zh": "PoE 摄像头原本正常但离线了"
+          },
+          "match_conditions": {
+            "connection_type": ["poe"],
+            "trigger_event": ["power_outage", "router_restart", "unknown"]
+          },
+          "sop_id": "sop_poe_reconnect"
+        },
+        {
+          "scene_id": "poe_no_power",
+          "scene_name": {
+            "en": "PoE camera not powering on",
+            "zh": "PoE 摄像头无法供电"
+          },
+          "match_conditions": {
+            "connection_type": ["poe"],
+            "led_status": ["no_light"]
+          },
+          "sop_id": "sop_poe_power_check"
+        },
+        {
+          "scene_id": "battery_offline",
+          "scene_name": {
+            "en": "Battery camera offline",
+            "zh": "电池摄像头离线"
+          },
+          "match_conditions": {
+            "connection_type": ["battery"]
+          },
+          "sop_id": "sop_battery_reconnect"
+        },
+        {
+          "scene_id": "after_firmware_update",
+          "scene_name": {
+            "en": "Camera offline after firmware update",
+            "zh": "摄像头固件升级后离线"
+          },
+          "match_conditions": {
+            "trigger_event": ["firmware_update"]
+          },
+          "sop_id": "sop_firmware_recovery"
+        }
+      ]
+    },
+    {
+      "goal_id": "night_vision_issue",
+      "goal_name": {
+        "en": "Night vision problems",
+        "zh": "夜视问题"
+      },
+      "intent_keywords": ["night vision", "dark", "blurry at night", "IR", "infrared", "black and white", "夜视", "晚上", "红外", "模糊"],
+      "clarifying_questions": [
+        {
+          "question_id": "nv_symptom",
+          "question": {
+            "en": "What exactly are you seeing at night? (a) Completely black/no image, (b) Blurry/foggy, (c) Overexposed/white wash, (d) Stuck in black & white during daytime",
+            "zh": "您在夜间看到的具体是什么情况？(a) 完全黑屏/无画面 (b) 模糊/有雾感 (c) 过曝/发白 (d) 白天也是黑白画面"
+          },
+          "options": ["black_no_image", "blurry_foggy", "overexposed", "stuck_bw_daytime"]
+        },
+        {
+          "question_id": "ir_led_visible",
+          "question": {
+            "en": "In the dark, can you see a faint red glow from the camera's IR LEDs?",
+            "zh": "在黑暗中，您能看到摄像头红外灯的微弱红光吗？"
+          },
+          "options": ["yes_red_glow", "no_glow", "not_sure"]
+        }
+      ],
+      "scenes": [
+        {
+          "scene_id": "nv_ir_not_working",
+          "scene_name": {
+            "en": "IR LEDs not working - completely dark image",
+            "zh": "红外灯不工作 - 画面完全黑暗"
+          },
+          "match_conditions": {
+            "nv_symptom": ["black_no_image"],
+            "ir_led_visible": ["no_glow"]
+          },
+          "sop_id": "sop_ir_led_fix"
+        },
+        {
+          "scene_id": "nv_blurry",
+          "scene_name": {
+            "en": "Night vision blurry or foggy",
+            "zh": "夜视模糊或有雾"
+          },
+          "match_conditions": {
+            "nv_symptom": ["blurry_foggy"]
+          },
+          "sop_id": "sop_nv_blurry_fix"
+        },
+        {
+          "scene_id": "nv_overexposed",
+          "scene_name": {
+            "en": "Night vision overexposed / white wash",
+            "zh": "夜视过曝/发白"
+          },
+          "match_conditions": {
+            "nv_symptom": ["overexposed"]
+          },
+          "sop_id": "sop_nv_overexposed_fix"
+        },
+        {
+          "scene_id": "nv_stuck_bw",
+          "scene_name": {
+            "en": "Camera stuck in night mode during daytime",
+            "zh": "摄像头白天也显示黑白画面"
+          },
+          "match_conditions": {
+            "nv_symptom": ["stuck_bw_daytime"]
+          },
+          "sop_id": "sop_ir_cut_filter_fix"
+        }
+      ]
+    },
+    {
+      "goal_id": "motion_detection_issue",
+      "goal_name": {
+        "en": "Motion detection / alert problems",
+        "zh": "移动侦测/报警问题"
+      },
+      "intent_keywords": ["motion detection", "alert", "notification", "PIR", "false alarm", "not detecting", "移动侦测", "报警", "通知", "误报", "漏报"],
+      "clarifying_questions": [
+        {
+          "question_id": "md_symptom",
+          "question": {
+            "en": "What is the issue? (a) Not detecting any motion, (b) Too many false alerts, (c) Detecting motion but no notification on phone",
+            "zh": "具体是什么问题？(a) 完全检测不到移动 (b) 误报太多 (c) 能检测到移动但手机没收到通知"
+          },
+          "options": ["no_detection", "false_alarms", "no_notification"]
+        },
+        {
+          "question_id": "camera_power_type",
+          "question": {
+            "en": "Is your camera battery-powered (with PIR sensor) or wired (PoE/WiFi)?",
+            "zh": "您的摄像头是电池供电（带 PIR 传感器）还是有线供电（PoE/WiFi）？"
+          },
+          "options": ["battery_pir", "wired"]
+        }
+      ],
+      "scenes": [
+        {
+          "scene_id": "md_not_detecting_wired",
+          "scene_name": {
+            "en": "Wired camera not detecting motion",
+            "zh": "有线摄像头无法检测移动"
+          },
+          "match_conditions": {
+            "md_symptom": ["no_detection"],
+            "camera_power_type": ["wired"]
+          },
+          "sop_id": "sop_md_enable_and_configure"
+        },
+        {
+          "scene_id": "md_not_detecting_battery",
+          "scene_name": {
+            "en": "Battery camera PIR not detecting motion",
+            "zh": "电池摄像头 PIR 无法检测移动"
+          },
+          "match_conditions": {
+            "md_symptom": ["no_detection"],
+            "camera_power_type": ["battery_pir"]
+          },
+          "sop_id": "sop_pir_fix"
+        },
+        {
+          "scene_id": "md_false_alarms",
+          "scene_name": {
+            "en": "Too many false motion alerts",
+            "zh": "误报太多"
+          },
+          "match_conditions": {
+            "md_symptom": ["false_alarms"]
+          },
+          "sop_id": "sop_reduce_false_alarms"
+        },
+        {
+          "scene_id": "md_no_notification",
+          "scene_name": {
+            "en": "Motion detected but no phone notification",
+            "zh": "检测到移动但手机没有通知"
+          },
+          "match_conditions": {
+            "md_symptom": ["no_notification"]
+          },
+          "sop_id": "sop_fix_push_notification"
+        }
+      ]
+    },
+    {
+      "goal_id": "nvr_recording_issue",
+      "goal_name": {
+        "en": "NVR recording / playback problems",
+        "zh": "NVR 录像/回放问题"
+      },
+      "intent_keywords": ["NVR", "recording", "playback", "HDD", "hard drive", "not recording", "录像", "回放", "硬盘", "没有录像"],
+      "clarifying_questions": [
+        {
+          "question_id": "nvr_symptom",
+          "question": {
+            "en": "What is the issue? (a) NVR not recording at all, (b) HDD not detected, (c) Recordings are corrupted/green frames, (d) Cannot play back recordings",
+            "zh": "具体是什么问题？(a) NVR 完全不录像 (b) 硬盘未检测到 (c) 录像损坏/绿色画面 (d) 无法回放录像"
+          },
+          "options": ["not_recording", "hdd_not_detected", "corrupted_recordings", "playback_failed"]
+        }
+      ],
+      "scenes": [
+        {
+          "scene_id": "nvr_not_recording",
+          "scene_name": {
+            "en": "NVR not recording",
+            "zh": "NVR 不录像"
+          },
+          "match_conditions": {
+            "nvr_symptom": ["not_recording"]
+          },
+          "sop_id": "sop_nvr_recording_fix"
+        },
+        {
+          "scene_id": "nvr_hdd_not_detected",
+          "scene_name": {
+            "en": "NVR HDD not detected",
+            "zh": "NVR 硬盘未检测到"
+          },
+          "match_conditions": {
+            "nvr_symptom": ["hdd_not_detected"]
+          },
+          "sop_id": "sop_nvr_hdd_fix"
+        },
+        {
+          "scene_id": "nvr_corrupted",
+          "scene_name": {
+            "en": "Corrupted recordings / green frames",
+            "zh": "录像损坏/绿色画面"
+          },
+          "match_conditions": {
+            "nvr_symptom": ["corrupted_recordings"]
+          },
+          "sop_id": "sop_corrupted_recording_fix"
+        },
+        {
+          "scene_id": "nvr_playback_failed",
+          "scene_name": {
+            "en": "Cannot play back recordings",
+            "zh": "无法回放录像"
+          },
+          "match_conditions": {
+            "nvr_symptom": ["playback_failed"]
+          },
+          "sop_id": "sop_playback_fix"
+        }
+      ]
+    },
+    {
+      "goal_id": "app_remote_access",
+      "goal_name": {
+        "en": "App connection / remote access issues",
+        "zh": "App 连接/远程访问问题"
+      },
+      "intent_keywords": ["app", "remote", "connection failed", "can't view", "UID", "远程", "连接失败", "无法查看", "App"],
+      "clarifying_questions": [
+        {
+          "question_id": "access_scope",
+          "question": {
+            "en": "Can you access the camera when you're at home on the same WiFi, or does it fail everywhere?",
+            "zh": "在家连同一个 WiFi 时能看到摄像头吗，还是在哪里都连不上？"
+          },
+          "options": ["local_ok_remote_fail", "fail_everywhere"]
+        }
+      ],
+      "scenes": [
+        {
+          "scene_id": "remote_only_fail",
+          "scene_name": {
+            "en": "Local access works but remote fails",
+            "zh": "本地能看但远程看不了"
+          },
+          "match_conditions": {
+            "access_scope": ["local_ok_remote_fail"]
+          },
+          "sop_id": "sop_remote_access_fix"
+        },
+        {
+          "scene_id": "all_fail",
+          "scene_name": {
+            "en": "Cannot access camera anywhere",
+            "zh": "在哪里都连不上摄像头"
+          },
+          "match_conditions": {
+            "access_scope": ["fail_everywhere"]
+          },
+          "sop_id": "sop_app_connection_fix"
+        }
+      ]
+    },
+    {
+      "goal_id": "video_quality_issue",
+      "goal_name": {
+        "en": "Video quality problems",
+        "zh": "画质问题"
+      },
+      "intent_keywords": ["blurry", "pixelated", "quality", "lag", "freeze", "choppy", "模糊", "卡顿", "画质", "不清楚", "花屏"],
+      "clarifying_questions": [
+        {
+          "question_id": "vq_symptom",
+          "question": {
+            "en": "What is the issue? (a) Blurry/low resolution, (b) Video freezing/lagging, (c) Quality recently degraded",
+            "zh": "具体是什么问题？(a) 模糊/分辨率低 (b) 画面卡顿/延迟 (c) 画质最近变差了"
+          },
+          "options": ["blurry", "freezing", "degraded"]
+        }
+      ],
+      "scenes": [
+        {
+          "scene_id": "vq_blurry",
+          "scene_name": { "en": "Blurry or low resolution video", "zh": "画面模糊或分辨率低" },
+          "match_conditions": { "vq_symptom": ["blurry"] },
+          "sop_id": "sop_video_quality_fix"
+        },
+        {
+          "scene_id": "vq_freezing",
+          "scene_name": { "en": "Video freezing or lagging", "zh": "画面卡顿或延迟" },
+          "match_conditions": { "vq_symptom": ["freezing"] },
+          "sop_id": "sop_video_lag_fix"
+        },
+        {
+          "scene_id": "vq_degraded",
+          "scene_name": { "en": "Quality recently degraded", "zh": "画质最近变差了" },
+          "match_conditions": { "vq_symptom": ["degraded"] },
+          "sop_id": "sop_video_quality_fix"
+        }
+      ]
+    },
+    {
+      "goal_id": "storage_issue",
+      "goal_name": {
+        "en": "Storage / SD card problems",
+        "zh": "存储/SD 卡问题"
+      },
+      "intent_keywords": ["SD card", "storage", "not detected", "full", "format", "SD卡", "存储", "格式化", "存满"],
+      "clarifying_questions": [
+        {
+          "question_id": "storage_symptom",
+          "question": {
+            "en": "What is the issue? (a) SD card not detected, (b) Storage full / not overwriting, (c) Recordings not saving",
+            "zh": "具体是什么问题？(a) SD 卡未检测到 (b) 存储满了/不覆盖 (c) 录像没有保存"
+          },
+          "options": ["not_detected", "full", "not_saving"]
+        }
+      ],
+      "scenes": [
+        {
+          "scene_id": "sd_not_detected",
+          "scene_name": { "en": "SD card not detected", "zh": "SD 卡未检测到" },
+          "match_conditions": { "storage_symptom": ["not_detected"] },
+          "sop_id": "sop_sd_card_detect"
+        },
+        {
+          "scene_id": "sd_full",
+          "scene_name": { "en": "Storage full", "zh": "存储满了" },
+          "match_conditions": { "storage_symptom": ["full"] },
+          "sop_id": "sop_sd_card_full"
+        },
+        {
+          "scene_id": "sd_not_saving",
+          "scene_name": { "en": "Recordings not saving to SD", "zh": "录像没有保存到 SD 卡" },
+          "match_conditions": { "storage_symptom": ["not_saving"] },
+          "sop_id": "sop_sd_card_recording"
+        }
+      ]
+    },
+    {
+      "goal_id": "audio_issue",
+      "goal_name": {
+        "en": "Two-way audio / sound problems",
+        "zh": "双向语音/声音问题"
+      },
+      "intent_keywords": ["audio", "microphone", "speaker", "echo", "talk", "sound", "语音", "麦克风", "回声", "说话", "声音"],
+      "clarifying_questions": [
+        {
+          "question_id": "audio_symptom",
+          "question": {
+            "en": "What is the issue? (a) No audio at all, (b) Audio echo, (c) Low volume",
+            "zh": "具体是什么问题？(a) 完全没有声音 (b) 有回声 (c) 音量太小"
+          },
+          "options": ["no_audio", "echo", "low_volume"]
+        }
+      ],
+      "scenes": [
+        {
+          "scene_id": "audio_none",
+          "scene_name": { "en": "No audio", "zh": "没有声音" },
+          "match_conditions": { "audio_symptom": ["no_audio"] },
+          "sop_id": "sop_audio_enable"
+        },
+        {
+          "scene_id": "audio_echo",
+          "scene_name": { "en": "Audio echo", "zh": "有回声" },
+          "match_conditions": { "audio_symptom": ["echo"] },
+          "sop_id": "sop_audio_echo_fix"
+        },
+        {
+          "scene_id": "audio_low",
+          "scene_name": { "en": "Low volume", "zh": "音量小" },
+          "match_conditions": { "audio_symptom": ["low_volume"] },
+          "sop_id": "sop_audio_volume_fix"
+        }
+      ]
+    }
+  ]
+}
